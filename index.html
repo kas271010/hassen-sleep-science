@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hassen Sleep Science | Comprehensive CPAP Therapy Optimization</title>
+    <meta name="description" content="Hassen Sleep Science offers personalized CPAP therapy optimization combining clinical expertise, patient-centered care, and data-guided insights. Mask selection, comfort settings, prescription adjustments — tailored to you.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; font-size: 16px; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: #2d3748;
+            background: #ffffff;
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        :root {
+            --primary: #1b4965;
+            --primary-light: #5fa8d3;
+            --primary-dark: #0d2137;
+            --accent: #62b6cb;
+            --warm: #c77b4a;
+            --warm-light: #f4e8df;
+            --success: #4a9e7e;
+            --bg-cream: #faf8f5;
+            --bg-section: #f0f5f8;
+            --text: #2d3748;
+            --text-light: #64748b;
+            --text-white: #ffffff;
+            --border: #e2e8f0;
+            --shadow: 0 4px 6px -1px rgba(0,0,0,0.07), 0 2px 4px -2px rgba(0,0,0,0.05);
+            --shadow-lg: 0 20px 25px -5px rgba(0,0,0,0.08), 0 8px 10px -6px rgba(0,0,0,0.04);
+            --radius: 12px;
+            --max-width: 1100px;
+        }
+
+        h1, h2, h3, h4 { font-family: 'Lora', Georgia, serif; font-weight: 600; line-height: 1.3; color: var(--primary-dark); }
+        h1 { font-size: clamp(2rem, 4.5vw, 3rem); }
+        h2 { font-size: clamp(1.6rem, 3vw, 2.2rem); margin-bottom: 1rem; }
+        h3 { font-size: 1.2rem; margin-bottom: 0.5rem; }
+        p { margin-bottom: 1rem; }
+
+        .container { max-width: var(--max-width); margin: 0 auto; padding: 0 1.5rem; }
+        .section { padding: 5rem 0; }
+        .section-alt { background: var(--bg-cream); }
+        .section-blue { background: var(--bg-section); }
+
+        .section-header {
+            text-align: center;
+            max-width: 680px;
+            margin: 0 auto 3.5rem;
+        }
+        .section-header p { color: var(--text-light); font-size: 1.05rem; }
+        .section-label {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--warm);
+            margin-bottom: 0.75rem;
+        }
+
+        /* ─── Navigation ─────────────────────────────────────────── */
+        .nav {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            transition: box-shadow 0.3s;
+        }
+        .nav.scrolled { box-shadow: var(--shadow); }
+        .nav-inner {
+            max-width: var(--max-width); margin: 0 auto; padding: 0 1.5rem;
+            display: flex; align-items: center; justify-content: space-between; height: 70px;
+        }
+        .nav-brand { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; color: var(--primary-dark); }
+        .nav-brand-icon {
+            width: 38px; height: 38px;
+            background: var(--primary);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            color: white; font-family: 'Lora', serif; font-weight: 700; font-size: 0.9rem;
+        }
+        .nav-brand-text { font-family: 'Lora', serif; font-weight: 600; font-size: 1.05rem; }
+        .nav-brand-sub { font-size: 0.7rem; color: var(--text-light); font-family: 'Inter', sans-serif; font-weight: 400; display: block; line-height: 1; margin-top: 1px; }
+        .nav-links { display: flex; gap: 2rem; list-style: none; align-items: center; }
+        .nav-links a { text-decoration: none; color: var(--text); font-size: 0.9rem; font-weight: 500; transition: color 0.2s; }
+        .nav-links a:hover { color: var(--primary-light); }
+        .nav-cta {
+            background: var(--primary); color: var(--text-white) !important;
+            padding: 0.5rem 1.25rem; border-radius: 8px; transition: background 0.2s !important;
+        }
+        .nav-cta:hover { background: var(--primary-light) !important; }
+        .nav-toggle { display: none; background: none; border: none; cursor: pointer; padding: 0.5rem; }
+        .nav-toggle span { display: block; width: 22px; height: 2px; background: var(--text); margin: 5px 0; transition: 0.3s; border-radius: 2px; }
+
+        /* ─── Hero ───────────────────────────────────────────────── */
+        .hero {
+            min-height: 100vh;
+            display: flex; align-items: center;
+            background: linear-gradient(160deg, var(--primary-dark) 0%, var(--primary) 60%, var(--primary-light) 100%);
+            color: var(--text-white);
+            position: relative; overflow: hidden;
+            padding-top: 70px;
+        }
+        .hero::before {
+            content: ''; position: absolute;
+            top: 0; right: 0; bottom: 0; left: 0;
+            background:
+                radial-gradient(ellipse at 80% 20%, rgba(98,182,203,0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 20% 80%, rgba(199,123,74,0.1) 0%, transparent 50%);
+        }
+        .hero-inner { position: relative; z-index: 1; max-width: 720px; }
+        .hero-eyebrow {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.85rem; font-weight: 500;
+            letter-spacing: 0.05em;
+            opacity: 0.75; margin-bottom: 1.25rem;
+        }
+        .hero h1 { color: white; margin-bottom: 1.5rem; line-height: 1.25; }
+        .hero h1 em { font-style: italic; color: var(--accent); }
+        .hero-sub {
+            font-size: 1.1rem; opacity: 0.85; margin-bottom: 2.5rem;
+            line-height: 1.8; max-width: 600px;
+        }
+        .hero-buttons { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+        .btn {
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            padding: 0.85rem 1.75rem; border-radius: 10px;
+            font-size: 0.95rem; font-weight: 600;
+            text-decoration: none; transition: all 0.2s;
+            cursor: pointer; border: none; font-family: 'Inter', sans-serif;
+        }
+        .btn-warm { background: var(--warm); color: white; }
+        .btn-warm:hover { background: #b56a3c; transform: translateY(-2px); box-shadow: 0 8px 25px rgba(199,123,74,0.3); }
+        .btn-outline-light { background: transparent; color: white; border: 2px solid rgba(255,255,255,0.35); }
+        .btn-outline-light:hover { border-color: white; background: rgba(255,255,255,0.08); }
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-primary:hover { background: var(--primary-light); transform: translateY(-2px); }
+
+        /* ─── Philosophy Banner ──────────────────────────────────── */
+        .philosophy {
+            background: var(--bg-cream);
+            padding: 3.5rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+        .philosophy-inner {
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem;
+            text-align: center;
+        }
+        .philosophy-item h3 { font-size: 1.05rem; margin-bottom: 0.4rem; color: var(--primary); }
+        .philosophy-item p { font-size: 0.88rem; color: var(--text-light); margin-bottom: 0; }
+        .philosophy-icon {
+            width: 48px; height: 48px; margin: 0 auto 0.75rem;
+            background: white; border-radius: 50%; border: 2px solid var(--border);
+            display: flex; align-items: center; justify-content: center;
+        }
+
+        /* ─── Story / Approach ───────────────────────────────────── */
+        .approach-grid {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
+        }
+        .approach-content p { color: var(--text-light); font-size: 0.95rem; }
+        .approach-content .highlight {
+            font-family: 'Lora', serif; font-size: 1.15rem; color: var(--primary-dark);
+            font-style: italic; line-height: 1.6; margin-bottom: 1.5rem;
+            padding-left: 1.25rem; border-left: 3px solid var(--warm);
+        }
+        .approach-visual {
+            background: white; border-radius: var(--radius); padding: 2.5rem;
+            box-shadow: var(--shadow); border: 1px solid var(--border);
+        }
+        .approach-visual h3 { text-align: center; margin-bottom: 2rem; font-size: 1.1rem; }
+        .approach-list { list-style: none; display: flex; flex-direction: column; gap: 1.25rem; }
+        .approach-list li {
+            display: flex; gap: 1rem; align-items: flex-start;
+            padding: 0.75rem; border-radius: 8px;
+            transition: background 0.2s;
+        }
+        .approach-list li:hover { background: var(--bg-cream); }
+        .approach-dot {
+            width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; margin-top: 6px;
+        }
+        .approach-list li:nth-child(1) .approach-dot { background: var(--warm); }
+        .approach-list li:nth-child(2) .approach-dot { background: var(--primary-light); }
+        .approach-list li:nth-child(3) .approach-dot { background: var(--success); }
+        .approach-list li:nth-child(4) .approach-dot { background: var(--accent); }
+        .approach-list li:nth-child(5) .approach-dot { background: #8b6cc1; }
+        .approach-list .al-title { font-weight: 600; font-size: 0.9rem; color: var(--primary-dark); }
+        .approach-list .al-desc { font-size: 0.82rem; color: var(--text-light); margin-top: 2px; }
+
+        /* ─── Services ───────────────────────────────────────────── */
+        .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+        .service-card {
+            background: white; border-radius: var(--radius); padding: 2rem;
+            box-shadow: var(--shadow); border: 1px solid var(--border);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .service-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+        .service-icon {
+            width: 44px; height: 44px; border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
+            margin-bottom: 1.25rem; font-size: 1.3rem;
+        }
+        .service-card:nth-child(1) .service-icon { background: #fef3e8; color: var(--warm); }
+        .service-card:nth-child(2) .service-icon { background: #e8f4f8; color: var(--primary); }
+        .service-card:nth-child(3) .service-icon { background: #e8f8f0; color: var(--success); }
+        .service-card:nth-child(4) .service-icon { background: #f0e8f8; color: #8b6cc1; }
+        .service-card:nth-child(5) .service-icon { background: #e8f0f8; color: var(--accent); }
+        .service-card:nth-child(6) .service-icon { background: #fef8e8; color: #c49a2a; }
+        .service-card h3 { font-family: 'Inter', sans-serif; font-weight: 600; font-size: 1.05rem; }
+        .service-card p { color: var(--text-light); font-size: 0.88rem; margin-bottom: 0; }
+
+        /* ─── Conditions ─────────────────────────────────────────── */
+        .conditions-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.25rem; }
+        .condition-card {
+            background: white; border-radius: var(--radius); padding: 1.5rem;
+            text-align: center; box-shadow: var(--shadow); border: 1px solid var(--border);
+        }
+        .condition-card h3 { font-family: 'Inter', sans-serif; font-size: 0.95rem; font-weight: 600; margin-bottom: 0.4rem; }
+        .condition-card p { font-size: 0.8rem; color: var(--text-light); margin-bottom: 0; }
+        .condition-icon { font-size: 1.8rem; margin-bottom: 0.75rem; }
+
+        /* ─── Experience / Trust ──────────────────────────────────── */
+        .trust-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; margin-bottom: 3rem; }
+        .trust-card {
+            background: white; border-radius: var(--radius); padding: 1.75rem;
+            text-align: center; box-shadow: var(--shadow);
+        }
+        .trust-value {
+            font-family: 'Lora', serif; font-size: 2.2rem; font-weight: 700;
+            color: var(--primary); line-height: 1;
+        }
+        .trust-label { font-size: 0.85rem; color: var(--text-light); margin-top: 0.4rem; }
+
+        .trust-narrative {
+            background: white; border-radius: var(--radius); padding: 2.5rem;
+            box-shadow: var(--shadow); border-left: 4px solid var(--warm);
+            max-width: 800px; margin: 0 auto;
+        }
+        .trust-narrative p { color: var(--text-light); font-size: 0.95rem; }
+        .trust-narrative p:last-child { margin-bottom: 0; }
+
+        /* ─── About ──────────────────────────────────────────────── */
+        .about-grid { display: grid; grid-template-columns: 1fr 1.3fr; gap: 4rem; align-items: start; }
+        .about-card {
+            background: linear-gradient(160deg, var(--primary), var(--primary-dark));
+            border-radius: var(--radius); padding: 2.5rem; color: white;
+        }
+        .about-name { font-family: 'Lora', serif; font-size: 1.6rem; font-weight: 700; margin-bottom: 0.25rem; }
+        .about-title { font-size: 0.95rem; opacity: 0.8; margin-bottom: 0.5rem; }
+        .about-tagline { font-style: italic; font-size: 0.88rem; opacity: 0.7; margin-bottom: 2rem; padding-bottom: 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.15); }
+        .about-creds { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+        .about-creds li { display: flex; align-items: center; gap: 0.6rem; font-size: 0.88rem; opacity: 0.9; }
+        .about-check { width: 16px; height: 16px; flex-shrink: 0; }
+        .about-content p { color: var(--text-light); font-size: 0.95rem; }
+        .pub-list { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; margin-top: 1.25rem; }
+        .pub-list li {
+            padding: 0.85rem 1rem; background: var(--bg-cream); border-radius: 8px;
+            font-size: 0.82rem; color: var(--text-light); border-left: 3px solid var(--warm);
+        }
+        .pub-list .journal { font-weight: 600; color: var(--primary); }
+
+        /* ─── Testimonial ────────────────────────────────────────── */
+        .testimonial-section { background: var(--primary-dark); color: white; padding: 4rem 0; text-align: center; }
+        .testimonial-quote {
+            font-family: 'Lora', serif; font-size: 1.4rem; font-style: italic;
+            max-width: 700px; margin: 0 auto 1.5rem; line-height: 1.6; opacity: 0.9;
+        }
+        .testimonial-attr { font-size: 0.85rem; opacity: 0.6; }
+
+        /* ─── CTA ────────────────────────────────────────────────── */
+        .cta-section {
+            background: linear-gradient(160deg, var(--primary), var(--primary-dark));
+            color: white; text-align: center; padding: 5rem 0;
+            position: relative; overflow: hidden;
+        }
+        .cta-section::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            background: radial-gradient(ellipse at 50% 50%, rgba(199,123,74,0.08) 0%, transparent 60%);
+        }
+        .cta-section .container { position: relative; z-index: 1; }
+        .cta-section h2 { color: white; margin-bottom: 1rem; }
+        .cta-section p { opacity: 0.8; font-size: 1.05rem; max-width: 550px; margin: 0 auto 2rem; }
+
+        /* ─── Contact ────────────────────────────────────────────── */
+        .contact-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 3rem; }
+        .contact-info { display: flex; flex-direction: column; gap: 1.5rem; }
+        .contact-item { display: flex; gap: 1rem; align-items: flex-start; }
+        .contact-icon {
+            width: 42px; height: 42px; background: var(--bg-cream); border-radius: 10px;
+            display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+        }
+        .contact-item h4 { font-family: 'Inter', sans-serif; font-weight: 600; font-size: 0.9rem; margin-bottom: 0.1rem; }
+        .contact-item p { color: var(--text-light); font-size: 0.88rem; margin-bottom: 0; }
+        .contact-item a { color: var(--primary-light); text-decoration: none; }
+        .contact-item a:hover { text-decoration: underline; }
+        .contact-form { display: flex; flex-direction: column; gap: 1rem; }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+        .contact-form input, .contact-form textarea, .contact-form select {
+            width: 100%; padding: 0.8rem 1rem; border: 1px solid var(--border); border-radius: 8px;
+            font-family: 'Inter', sans-serif; font-size: 0.9rem; background: white;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        .contact-form input:focus, .contact-form textarea:focus, .contact-form select:focus {
+            outline: none; border-color: var(--primary-light); box-shadow: 0 0 0 3px rgba(95,168,211,0.12);
+        }
+        .contact-form textarea { min-height: 120px; resize: vertical; }
+        .contact-form button { align-self: flex-start; }
+        .contact-note {
+            font-size: 0.8rem; color: var(--text-light); font-style: italic;
+            padding: 1rem; background: var(--bg-cream); border-radius: 8px; margin-top: 0.5rem;
+        }
+
+        /* ─── Footer ─────────────────────────────────────────────── */
+        .footer { background: var(--primary-dark); color: white; padding: 3rem 0 1.5rem; }
+        .footer-inner {
+            display: flex; justify-content: space-between; align-items: start;
+            gap: 2rem; flex-wrap: wrap; margin-bottom: 2rem;
+        }
+        .footer-brand p { opacity: 0.5; font-size: 0.82rem; max-width: 320px; margin-top: 0.5rem; }
+        .footer-links { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+        .footer-links a { color: rgba(255,255,255,0.6); text-decoration: none; font-size: 0.88rem; }
+        .footer-links a:hover { color: white; }
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.08); padding-top: 1.5rem;
+            text-align: center; font-size: 0.78rem; opacity: 0.4;
+        }
+
+        /* ─── Responsive ─────────────────────────────────────────── */
+        @media (max-width: 1024px) {
+            .approach-grid, .about-grid { grid-template-columns: 1fr; }
+            .services-grid { grid-template-columns: repeat(2, 1fr); }
+            .conditions-grid { grid-template-columns: repeat(2, 1fr); }
+            .trust-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .nav-links.active {
+                display: flex; flex-direction: column; position: absolute;
+                top: 70px; left: 0; right: 0; background: white;
+                padding: 1.5rem; border-bottom: 1px solid var(--border); box-shadow: var(--shadow);
+            }
+            .nav-toggle { display: block; }
+            .section { padding: 3.5rem 0; }
+            .philosophy-inner { grid-template-columns: 1fr; gap: 1.5rem; }
+            .services-grid, .conditions-grid { grid-template-columns: 1fr; }
+            .contact-grid { grid-template-columns: 1fr; }
+            .form-row { grid-template-columns: 1fr; }
+            .trust-grid { grid-template-columns: 1fr 1fr; }
+        }
+
+        .fade-in { opacity: 0; transform: translateY(16px); transition: opacity 0.6s ease, transform 0.6s ease; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+    </style>
+</head>
+<body>
+
+<!-- ═══ Navigation ═══ -->
+<nav class="nav" id="nav">
+    <div class="nav-inner">
+        <a href="#" class="nav-brand">
+            <div class="nav-brand-icon">SS</div>
+            <div>
+                <span class="nav-brand-text">Hassen Sleep Science</span>
+                <span class="nav-brand-sub">Comprehensive CPAP Therapy</span>
+            </div>
+        </a>
+        <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+            <span></span><span></span><span></span>
+        </button>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#approach">Our Approach</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#experience">Experience</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact" class="nav-cta">Book a Consultation</a></li>
+        </ul>
+    </div>
+</nav>
+
+<!-- ═══ Hero ═══ -->
+<section class="hero">
+    <div class="container">
+        <div class="hero-inner">
+            <div class="hero-eyebrow">Hassen Sleep Science &mdash; San Diego, CA</div>
+            <h1>Sleep apnea isn't just poor sleep. <em>It's suffocation.</em></h1>
+            <p class="hero-sub">
+                Every time you stop breathing at night, your body experiences what it would feel like to be held
+                underwater &mdash; oxygen cut off, your brain jolting awake to gasp for air. Sometimes for
+                30 seconds. Sometimes longer. Sometimes hundreds of times a night. This isn't a comfort problem.
+                It's asphyxia while you sleep.
+            </p>
+            <p class="hero-sub" style="margin-top: -0.5rem;">
+                CPAP therapy can end that cycle &mdash; but only if it's set up right, fits right, and feels right.
+                I take the time to listen, understand your experience, and find the combination that actually works
+                for <em>you</em>.
+            </p>
+            <div class="hero-buttons">
+                <a href="#contact" class="btn btn-warm">Schedule a Consultation</a>
+                <a href="#approach" class="btn btn-outline-light">Learn About My Approach</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══ Philosophy Bar ═══ -->
+<div class="philosophy">
+    <div class="container">
+        <div class="philosophy-inner">
+            <div class="philosophy-item fade-in">
+                <div class="philosophy-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--warm)" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                </div>
+                <h3>Solutions Over Expediency</h3>
+                <p>I take the time to find what actually works for you &mdash; not the fastest fix, but the right one.</p>
+            </div>
+            <div class="philosophy-item fade-in">
+                <div class="philosophy-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                </div>
+                <h3>Science-Guided Care</h3>
+                <p>Every recommendation is grounded in physiology, airway dynamics, and proven clinical data.</p>
+            </div>
+            <div class="philosophy-item fade-in">
+                <div class="philosophy-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--success)" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                </div>
+                <h3>True Partnership</h3>
+                <p>Your experience matters. I listen first, then we solve the problem together.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ═══ The Reality ═══ -->
+<section class="section section-blue" id="reality">
+    <div class="container">
+        <div class="section-header">
+            <div class="section-label">The Reality</div>
+            <h2>This Isn't About Snoring. It's About Survival.</h2>
+        </div>
+        <div class="reality-grid fade-in">
+            <div class="reality-visual">
+                <div class="reality-metaphor">
+                    <div class="reality-wave"></div>
+                    <p class="reality-caption">Each apnea event is like being held underwater &mdash; your airway collapses, oxygen stops, and your body fights to breathe.</p>
+                </div>
+            </div>
+            <div class="reality-content">
+                <p>Most people think sleep apnea means loud snoring and feeling tired. The truth is far more serious.</p>
+                <p>During an apnea event, your airway seals shut. <strong>No air gets in. No oxygen reaches your blood.</strong> Your oxygen saturation drops &mdash; sometimes to levels that would trigger alarms in any hospital. Your heart races. Your blood pressure spikes. Your brain sends a panic signal to wake you just enough to gasp for air.</p>
+                <p>Then you fall back asleep. And it happens again. <strong>30, 50, sometimes 100+ times per hour.</strong></p>
+                <p>Night after night, this cycle damages your cardiovascular system, strains your heart, impairs your cognition, and increases your risk of stroke, heart attack, diabetes, and depression. It's not just poor sleep &mdash; <strong>it's repeated asphyxiation</strong>, and your body keeps the score.</p>
+                <p style="margin-bottom:0;">That's why getting CPAP therapy right isn't optional. It's not about comfort scores or compliance checkboxes. <strong>It's about keeping you breathing.</strong></p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .reality-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 3rem; align-items: center; }
+    .reality-content p { color: var(--text-light); font-size: 0.95rem; }
+    .reality-visual { display: flex; align-items: center; justify-content: center; }
+    .reality-metaphor {
+        background: linear-gradient(180deg, var(--primary-dark) 0%, var(--primary) 60%, var(--primary-light) 100%);
+        border-radius: var(--radius); padding: 3rem 2rem 2rem; text-align: center;
+        position: relative; overflow: hidden;
+    }
+    .reality-wave {
+        width: 100%; height: 80px; margin-bottom: 1.5rem;
+        background:
+            repeating-linear-gradient(90deg,
+                transparent, transparent 20px,
+                rgba(255,255,255,0.03) 20px, rgba(255,255,255,0.03) 40px
+            );
+        position: relative;
+    }
+    .reality-wave::before, .reality-wave::after {
+        content: ''; position: absolute; left: -10%; width: 120%; height: 20px;
+        border-radius: 50%; opacity: 0.15;
+    }
+    .reality-wave::before {
+        top: 20px; background: white;
+        animation: wave1 4s ease-in-out infinite;
+    }
+    .reality-wave::after {
+        top: 40px; background: white; opacity: 0.1;
+        animation: wave2 5s ease-in-out infinite;
+    }
+    @keyframes wave1 { 0%, 100% { transform: translateX(-5%); } 50% { transform: translateX(5%); } }
+    @keyframes wave2 { 0%, 100% { transform: translateX(5%); } 50% { transform: translateX(-5%); } }
+    .reality-caption {
+        color: rgba(255,255,255,0.8); font-size: 0.9rem; font-style: italic;
+        line-height: 1.6; margin-bottom: 0;
+    }
+    .reality-stats {
+        display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1.5rem;
+    }
+    .reality-stat {
+        background: rgba(255,255,255,0.08); border-radius: 8px; padding: 1rem;
+        border: 1px solid rgba(255,255,255,0.1);
+    }
+    .reality-stat-val {
+        font-family: 'Lora', serif; font-size: 1.6rem; font-weight: 700; color: var(--accent);
+    }
+    .reality-stat-label { font-size: 0.75rem; color: rgba(255,255,255,0.6); margin-top: 0.15rem; }
+    @media (max-width: 1024px) { .reality-grid { grid-template-columns: 1fr; } }
+</style>
+
+<!-- ═══ The Approach ═══ -->
+<section class="section" id="approach">
+    <div class="container">
+        <div class="section-header">
+            <div class="section-label">Our Approach</div>
+            <h2>Comprehensive Care, Tailored to You</h2>
+            <p>Imagine being submerged underwater &mdash; not once, but dozens or hundreds of times every night. That's what untreated sleep apnea does to your body. Your brain, your heart, your organs are starved of oxygen while you sleep. CPAP can stop it &mdash; but only with the right approach. There is no one-size-fits-all.</p>
+        </div>
+        <div class="approach-grid fade-in">
+            <div class="approach-content">
+                <p class="highlight">"The difference between a patient who quits CPAP and one who thrives is almost never the machine. It's whether someone took the time to get the details right."</p>
+                <p>Most CPAP setups follow a standard script: here's your machine, here's your mask, call us if you have problems. But every airway is different. Every patient sleeps differently. And every type of sleep apnea &mdash; obstructive, central, mixed, positional &mdash; responds to different approaches.</p>
+                <p>I draw from <strong>thousands of patient interactions</strong> to recognize patterns that others miss. I understand the physiology &mdash; the aerodynamics of airflow through your upper airway, how pressure interacts with anatomy, why a mask that works perfectly for one person creates unbearable leak for another.</p>
+                <p>This isn't guesswork. It's the intersection of clinical judgment, mathematical modeling, and genuine attention to what you're experiencing. And it's why I spend the time that other providers can't.</p>
+            </div>
+            <div class="approach-visual">
+                <h3>What a Comprehensive Evaluation Covers</h3>
+                <ul class="approach-list">
+                    <li>
+                        <span class="approach-dot"></span>
+                        <div>
+                            <div class="al-title">Attentive Listening & History</div>
+                            <div class="al-desc">Understanding your sleep patterns, symptoms, comfort concerns, and what's been tried before</div>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="approach-dot"></span>
+                        <div>
+                            <div class="al-title">Therapy Data Analysis</div>
+                            <div class="al-desc">Reviewing your nightly AHI trends, leak patterns, pressure response, and usage data to find hidden issues</div>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="approach-dot"></span>
+                        <div>
+                            <div class="al-title">Mask Selection & Fit Optimization</div>
+                            <div class="al-desc">Matching mask type and size to your facial anatomy, breathing style, and comfort preferences</div>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="approach-dot"></span>
+                        <div>
+                            <div class="al-title">Comfort & Climate Settings</div>
+                            <div class="al-desc">Fine-tuning humidity, tube temperature, ramp settings, and EPR/pressure relief for your comfort</div>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="approach-dot"></span>
+                        <div>
+                            <div class="al-title">Prescription Adjustment Recommendations</div>
+                            <div class="al-desc">When the data shows your current pressure isn't optimal, I provide evidence-based recommendations to your physician</div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══ Conditions ═══ -->
+<section class="section section-alt" id="conditions">
+    <div class="container">
+        <div class="section-header">
+            <div class="section-label">Expertise</div>
+            <h2>Every Type of Sleep Apnea. Every Patient.</h2>
+            <p>Different conditions demand different strategies. Cookie-cutter therapy doesn't work.</p>
+        </div>
+        <div class="conditions-grid fade-in">
+            <div class="condition-card">
+                <div class="condition-icon">
+                    <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="1.5"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                </div>
+                <h3>Obstructive (OSA)</h3>
+                <p>Airway collapse during sleep. Requires careful pressure titration and mask selection to maintain patency without over-pressurizing.</p>
+            </div>
+            <div class="condition-card">
+                <div class="condition-icon">
+                    <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--warm)" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+                </div>
+                <h3>Central (CSA)</h3>
+                <p>Brain signal disruption &mdash; not obstruction. Often requires ASV or bilevel therapy with careful backup rate consideration.</p>
+            </div>
+            <div class="condition-card">
+                <div class="condition-icon">
+                    <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--success)" stroke-width="1.5"><path d="M16 3h5v5M4 20L21 3M21 16v5h-5M4 4l17 17"/></svg>
+                </div>
+                <h3>Mixed Apnea</h3>
+                <p>Both central and obstructive components. Demands nuanced therapy that addresses dual mechanisms without worsening either.</p>
+            </div>
+            <div class="condition-card">
+                <div class="condition-icon">
+                    <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#8b6cc1" stroke-width="1.5"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>
+                </div>
+                <h3>Positional</h3>
+                <p>Events concentrated in specific sleep positions. Therapy adjustments and positional strategies can dramatically improve outcomes.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══ Services ═══ -->
+<section class="section section-blue" id="services">
+    <div class="container">
+        <div class="section-header">
+            <div class="section-label">Services</div>
+            <h2>What I Offer</h2>
+            <p>From your first night on CPAP to long-term optimization, I'm here to help at every stage.</p>
+        </div>
+        <div class="services-grid">
+            <div class="service-card fade-in">
+                <div class="service-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                </div>
+                <h3>Comprehensive CPAP Evaluation</h3>
+                <p>Full review of your therapy data, device settings, mask fit, and symptom history. We identify what's working and what needs to change.</p>
+            </div>
+            <div class="service-card fade-in">
+                <div class="service-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                </div>
+                <h3>Comfort & Settings Optimization</h3>
+                <p>Fine-tuning pressure, humidity, tube temperature, EPR, ramp, and auto-response settings to maximize comfort and minimize events.</p>
+            </div>
+            <div class="service-card fade-in">
+                <div class="service-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M12 8v8M8 12h8"/></svg>
+                </div>
+                <h3>Mask Selection & Troubleshooting</h3>
+                <p>Matching the right mask type and size to your facial structure, breathing habits, and comfort. Solving leak, pressure marks, and claustrophobia issues.</p>
+            </div>
+            <div class="service-card fade-in">
+                <div class="service-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                </div>
+                <h3>Prescription Recommendations</h3>
+                <p>When your data tells a clear story, I prepare evidence-based recommendations for your physician &mdash; with the clinical rationale to support them.</p>
+            </div>
+            <div class="service-card fade-in">
+                <div class="service-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20V10M18 20V4M6 20v-4"/></svg>
+                </div>
+                <h3>Ongoing Monitoring & Coaching</h3>
+                <p>Regular check-ins to track your progress, catch problems early, and adjust as your needs evolve. I stay with you until therapy feels right.</p>
+            </div>
+            <div class="service-card fade-in">
+                <div class="service-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                </div>
+                <h3>Telehealth Consultations</h3>
+                <p>Expert guidance from anywhere. We review your data together, discuss your concerns, and develop a plan &mdash; all from the comfort of your home.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══ Experience / Trust ═══ -->
+<section class="section" id="experience">
+    <div class="container">
+        <div class="section-header">
+            <div class="section-label">Experience</div>
+            <h2>Care Backed by Depth, Not Just Data</h2>
+            <p>The insights I bring to your care come from years at the bedside, thousands of patient conversations, and rigorous clinical research.</p>
+        </div>
+        <div class="trust-grid fade-in">
+            <div class="trust-card">
+                <div class="trust-value">10+</div>
+                <div class="trust-label">Years of Clinical Experience</div>
+            </div>
+            <div class="trust-card">
+                <div class="trust-value">3,200+</div>
+                <div class="trust-label">CPAP Patients Managed</div>
+            </div>
+            <div class="trust-card">
+                <div class="trust-value">3</div>
+                <div class="trust-label">Peer-Reviewed Publications</div>
+            </div>
+            <div class="trust-card">
+                <div class="trust-value">6</div>
+                <div class="trust-label">Clinical Sites Served</div>
+            </div>
+        </div>
+        <div class="trust-narrative fade-in">
+            <p><strong>Data informs. It doesn't replace judgment.</strong></p>
+            <p>I've built analytical tools that track compliance patterns across thousands of patients &mdash; and that experience gives me an intuition for what's going wrong before the numbers fully confirm it. But the numbers are only part of the picture.</p>
+            <p>The patient who says "it feels like I'm suffocating" needs someone who understands both the physiology of pressure intolerance <em>and</em> the anxiety of being told to strap a mask to your face every night. The patient with a "normal" AHI but persistent fatigue needs someone who looks beyond the headline number to leak patterns, sleep architecture, and positional data.</p>
+            <p>That's what comprehensive care means: <strong>the clinical depth to understand what's happening, the analytical rigor to prove it, and the compassion to explain it in a way that makes you feel heard.</strong></p>
+        </div>
+    </div>
+</section>
+
+<!-- ═══ Testimonial ═══ -->
+<section class="testimonial-section">
+    <div class="container">
+        <p class="testimonial-quote">"I'd been ready to throw my CPAP in the closet. Kasim actually listened to what I was experiencing, adjusted my settings based on my data, and found me a mask that doesn't leak. For the first time in months, I'm sleeping through the night."</p>
+        <p class="testimonial-attr">&mdash; CPAP Patient, San Diego</p>
+    </div>
+</section>
+
+<!-- ═══ About ═══ -->
+<section class="section section-alt" id="about">
+    <div class="container">
+        <div class="section-header">
+            <div class="section-label">About</div>
+            <h2>Meet Kasim Hassen</h2>
+        </div>
+        <div class="about-grid fade-in">
+            <div class="about-card">
+                <div class="about-name">Kasim Hassen</div>
+                <div class="about-title">RRT, RCP, MD</div>
+                <div class="about-tagline">"I became a respiratory therapist because I believe breathing well is the foundation of living well."</div>
+                <ul class="about-creds">
+                    <li><svg class="about-check" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> Registered Respiratory Therapist</li>
+                    <li><svg class="about-check" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> Doctor of Medicine (MD)</li>
+                    <li><svg class="about-check" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> California RCP #49031</li>
+                    <li><svg class="about-check" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> ACGME Internal Medicine Training</li>
+                    <li><svg class="about-check" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> NICU / ICU / Acute Care / Home Vent</li>
+                    <li><svg class="about-check" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> BLS / ACLS / NRP Certified</li>
+                </ul>
+            </div>
+            <div class="about-content">
+                <p>I've spent over a decade in respiratory care &mdash; from managing ventilators in neonatal ICUs to coordinating clinical research, completing an internal medicine internship, and working directly with CPAP patients in their homes.</p>
+                <p>My medical training gives me a deep understanding of respiratory physiology, airway dynamics, and the mechanics of positive-pressure ventilation. But what I'm most proud of is the clinical intuition that comes from years of sitting with patients, listening to their frustrations, and figuring out what other providers missed.</p>
+                <p>I've learned that the difference between compliance and abandonment often comes down to a <strong>mask that's one size off</strong>, a <strong>humidity setting that causes rainout</strong>, or a <strong>pressure that's technically correct but functionally unbearable</strong>. These are solvable problems. They just require someone who cares enough to solve them.</p>
+                <p>My research background means I don't rely on intuition alone. I analyze your therapy data with the same rigor I applied to peer-reviewed clinical studies &mdash; and I translate those findings into changes you can actually feel.</p>
+
+                <h3 style="margin-top: 1.5rem; font-size: 1rem;">Peer-Reviewed Research</h3>
+                <ul class="pub-list">
+                    <li>Hassen K, Fitzgerald K, Katheria AC, et al. Comparative accuracy of a wireless heart-rate monitor vs standard ECG during resuscitation of very preterm neonates. <span class="journal">Resuscitation</span>. 2025.</li>
+                    <li>Katheria AC, Hassen K, Rich W, et al. Resuscitation outcomes of infants who do not achieve target oxygen saturation at five minutes of life. <span class="journal">Journal of Perinatology</span>. 2019.</li>
+                    <li>Katheria AC, Mercer J, Brown M, Pierce B, Hassen K, Finer N. Umbilical cord milking at birth for term newborns with acidosis. <span class="journal">Journal of Perinatology</span>. 2018.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══ CTA ═══ -->
+<section class="cta-section">
+    <div class="container">
+        <h2>Better sleep starts with someone who listens.</h2>
+        <p>If your CPAP therapy isn't working the way it should, let's figure out why &mdash; and fix it together.</p>
+        <a href="#contact" class="btn btn-warm">Book Your Consultation</a>
+    </div>
+</section>
+
+<!-- ═══ Contact ═══ -->
+<section class="section" id="contact">
+    <div class="container">
+        <div class="section-header">
+            <div class="section-label">Get Started</div>
+            <h2>Let's Talk About Your CPAP Experience</h2>
+            <p>Whether you're newly diagnosed, struggling with an existing setup, or just want a second opinion &mdash; I'm here to help.</p>
+        </div>
+        <div class="contact-grid fade-in">
+            <div class="contact-info">
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                    </div>
+                    <div>
+                        <h4>Email</h4>
+                        <p><a href="mailto:kasimmisak@hotmail.com">kasimmisak@hotmail.com</a></p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                    </div>
+                    <div>
+                        <h4>Phone</h4>
+                        <p><a href="tel:+18105238233">(810) 523-8233</a></p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    </div>
+                    <div>
+                        <h4>Location</h4>
+                        <p>San Diego, California<br><span style="font-size:0.8rem; color:var(--text-light);">Telehealth consultations available nationwide</span></p>
+                    </div>
+                </div>
+                <div class="contact-note">
+                    <strong>What to expect:</strong> Our initial consultation is a thorough conversation about your CPAP experience, followed by a detailed review of your therapy data. Come ready to share what's bothering you &mdash; no concern is too small.
+                </div>
+            </div>
+            <form class="contact-form" id="contactForm" action="https://formspree.io/f/your-form-id" method="POST">
+                <div class="form-row">
+                    <input type="text" name="name" placeholder="Your Name" required>
+                    <input type="email" name="email" placeholder="Email Address" required>
+                </div>
+                <input type="tel" name="phone" placeholder="Phone Number (optional)">
+                <select name="reason" required>
+                    <option value="" disabled selected>What brings you here?</option>
+                    <option value="new">I'm new to CPAP and need help getting started</option>
+                    <option value="struggling">I'm struggling with my current CPAP setup</option>
+                    <option value="optimize">I want to optimize my therapy</option>
+                    <option value="second-opinion">I'd like a second opinion on my treatment</option>
+                    <option value="provider">I'm a provider interested in collaboration</option>
+                    <option value="other">Something else</option>
+                </select>
+                <textarea name="message" placeholder="Tell me a bit about your situation &mdash; what's working, what isn't, and what you're hoping to improve." required></textarea>
+                <button type="submit" class="btn btn-primary">Send Message</button>
+            </form>
+        </div>
+    </div>
+</section>
+
+<!-- ═══ Footer ═══ -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer-inner">
+            <div class="footer-brand">
+                <div style="display:flex; align-items:center; gap:0.75rem; margin-bottom:0.5rem;">
+                    <div class="nav-brand-icon" style="width:32px;height:32px;font-size:0.8rem;">SS</div>
+                    <strong style="font-family:'Lora',serif;">Hassen Sleep Science</strong>
+                </div>
+                <p>Comprehensive, compassionate CPAP therapy optimization. Combining clinical expertise, patient partnership, and evidence-based care to help you sleep better.</p>
+            </div>
+            <ul class="footer-links">
+                <li><a href="#approach">Our Approach</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#about">About Kasim</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2026 Hassen Sleep Science. All rights reserved. &nbsp;|&nbsp; Kasim Hassen, RRT, RCP &nbsp;|&nbsp; CA License #49031
+        </div>
+    </div>
+</footer>
+
+<script>
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 50));
+
+    const navToggle = document.getElementById('navToggle');
+    const navLinks = document.getElementById('navLinks');
+    navToggle.addEventListener('click', () => navLinks.classList.toggle('active'));
+    navLinks.querySelectorAll('a').forEach(link => link.addEventListener('click', () => navLinks.classList.remove('active')));
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+        if (this.action.includes('your-form-id')) {
+            e.preventDefault();
+            alert('Thank you for your interest! The contact form will be connected shortly. In the meantime, please reach out directly via email or phone.');
+        }
+    });
+</script>
+
+</body>
+</html>
