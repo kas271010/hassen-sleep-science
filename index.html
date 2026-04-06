@@ -261,7 +261,14 @@
         .about-creds li { display: flex; align-items: center; gap: 0.6rem; font-size: 0.88rem; opacity: 0.9; }
         .about-check { width: 16px; height: 16px; flex-shrink: 0; }
         .about-content p { color: var(--text-light); font-size: 0.95rem; }
-        .pub-list { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; margin-top: 1.25rem; }
+        .pub-scroll {
+            max-height: 320px; overflow-y: auto; margin-top: 0.25rem;
+            border: 1px solid var(--border); border-radius: 8px; padding: 0.5rem;
+        }
+        .pub-scroll::-webkit-scrollbar { width: 6px; }
+        .pub-scroll::-webkit-scrollbar-track { background: var(--bg-cream); border-radius: 3px; }
+        .pub-scroll::-webkit-scrollbar-thumb { background: var(--primary-light); border-radius: 3px; }
+        .pub-list { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; margin-top: 0; }
         .pub-list li {
             padding: 0.85rem 1rem; background: var(--bg-cream); border-radius: 8px;
             font-size: 0.82rem; color: var(--text-light); border-left: 3px solid var(--warm);
@@ -377,7 +384,7 @@
             <span></span><span></span><span></span>
         </button>
         <ul class="nav-links" id="navLinks">
-            <li><a href="#approach">Our Approach</a></li>
+            <li><a href="#approach">My Approach</a></li>
             <li><a href="#services">Services</a></li>
             <li><a href="#experience">Experience</a></li>
             <li><a href="#about">About</a></li>
@@ -394,15 +401,13 @@
             <div class="hero-eyebrow">Hassen Sleep Science &mdash; California &amp; Michigan Licensed</div>
             <h1>Sleep apnea isn't just poor sleep. <em>It's suffocation.</em></h1>
             <p class="hero-sub">
-                Every time you stop breathing at night, your body experiences what it would feel like to be held
-                underwater &mdash; oxygen cut off, your brain jolting awake to gasp for air. Sometimes for
-                30 seconds. Sometimes longer. Sometimes hundreds of times a night. This isn't a comfort problem.
-                It's asphyxia while you sleep.
+                Every time you stop breathing at night, your airway seals shut and your oxygen drops &mdash;
+                sometimes for 30 seconds, sometimes longer, sometimes hundreds of times a night. Your brain
+                jolts awake just enough to gasp for air. Then it happens again.
             </p>
             <p class="hero-sub" style="margin-top: -0.5rem;">
-                CPAP therapy can end that cycle &mdash; but only if it's set up right, fits right, and feels right.
-                I take the time to listen, understand your experience, and find the combination that actually works
-                for <em>you</em>.
+                CPAP therapy can end that cycle &mdash; but only if it's set up correctly and tailored to you.
+                I take the time to listen, understand your experience, and find the combination that actually works.
             </p>
             <div class="hero-buttons">
                 <a href="#contact" class="btn btn-warm">Schedule a Consultation</a>
@@ -452,15 +457,15 @@
             <div class="reality-visual">
                 <div class="reality-metaphor">
                     <div class="reality-wave"></div>
-                    <p class="reality-caption">Each apnea event is like being held underwater &mdash; your airway collapses, oxygen stops, and your body fights to breathe.</p>
+                    <p class="reality-caption">Each apnea event is like being held underwater &mdash; your airway collapses, oxygen is compromised, and your body fights to breathe.</p>
                 </div>
             </div>
             <div class="reality-content">
-                <p>Most people think sleep apnea means loud snoring and feeling tired. The truth is far more serious.</p>
+                <p>Most people think sleep apnea means loud snoring and feeling tired. The reality is a medical emergency happening on repeat.</p>
                 <p>During an apnea event, your airway seals shut. <strong>No air gets in. No oxygen reaches your blood.</strong> Your oxygen saturation drops &mdash; sometimes to levels that would trigger alarms in any hospital. Your heart races. Your blood pressure spikes. Your brain sends a panic signal to wake you just enough to gasp for air.</p>
                 <p>Then you fall back asleep. And it happens again. <strong>30, 50, sometimes 100+ times per hour.</strong></p>
-                <p>Night after night, this cycle damages your cardiovascular system, strains your heart, impairs your cognition, and increases your risk of stroke, heart attack, diabetes, and depression. It's not just poor sleep &mdash; <strong>it's repeated asphyxiation</strong>, and your body keeps the score.</p>
-                <p style="margin-bottom:0;">That's why getting CPAP therapy right isn't optional. It's not about comfort scores or compliance checkboxes. <strong>It's about keeping you breathing.</strong></p>
+                <p>Night after night, this cycle damages your cardiovascular system, strains your heart, impairs your cognition, and increases your risk of stroke, heart attack, diabetes, and depression. <strong>Your body keeps the score</strong> &mdash; even when you don't remember waking up.</p>
+                <p style="margin-bottom:0;">That's why getting CPAP therapy right isn't optional. It's not about compliance checkboxes or hitting a number on a report. <strong>It's about keeping you breathing.</strong></p>
             </div>
         </div>
     </div>
@@ -520,16 +525,15 @@
 <section class="section" id="approach">
     <div class="container">
         <div class="section-header">
-            <div class="section-label">Our Approach</div>
+            <div class="section-label">My Approach</div>
             <h2>Comprehensive Care, Tailored to You</h2>
-            <p>Imagine being submerged underwater &mdash; not once, but dozens or hundreds of times every night. That's what untreated sleep apnea does to your body. Your brain, your heart, your organs are starved of oxygen while you sleep. CPAP can stop it &mdash; but only with the right approach. There is no one-size-fits-all.</p>
+            <p>Most CPAP setups follow a script: here's your machine, here's your mask, call us if there's a problem. But every airway is different, every patient sleeps differently, and every type of sleep apnea responds to a different strategy. Getting it right takes time, attention, and clinical depth.</p>
         </div>
         <div class="approach-grid fade-in">
             <div class="approach-content">
                 <p class="highlight">"The difference between a patient who quits CPAP and one who thrives is almost never the machine. It's whether someone took the time to get the details right."</p>
-                <p>Most CPAP setups follow a standard script: here's your machine, here's your mask, call us if you have problems. But every airway is different. Every patient sleeps differently. And every type of sleep apnea &mdash; obstructive, central, mixed, positional &mdash; responds to different approaches.</p>
-                <p>I draw from <strong>thousands of patient interactions</strong> to recognize patterns that others miss. I understand the physiology &mdash; the aerodynamics of airflow through your upper airway, how pressure interacts with anatomy, why a mask that works perfectly for one person creates unbearable leak for another.</p>
-                <p>This isn't guesswork. It's the intersection of clinical judgment, mathematical modeling, and genuine attention to what you're experiencing. And it's why I spend the time that other providers can't.</p>
+                <p>I draw from <strong>thousands of patient interactions</strong> to recognize patterns that others miss &mdash; the aerodynamics of airflow through your upper airway, how pressure interacts with anatomy, why a mask that works perfectly for one person creates unbearable leak for another.</p>
+                <p>This isn't guesswork. It's the intersection of clinical judgment, data analysis, and genuine attention to what you're experiencing. And it's why I spend the time that other providers can't.</p>
             </div>
             <div class="approach-visual">
                 <h3>What a Comprehensive Evaluation Covers</h3>
@@ -676,7 +680,7 @@
     <div class="container">
         <div class="section-header">
             <div class="section-label">Experience</div>
-            <h2>Care Backed by Depth, Not Just Data</h2>
+            <h2>Clinical Depth You Can Trust</h2>
             <p>The insights I bring to your care come from years at the bedside, thousands of patient conversations, and rigorous clinical research.</p>
         </div>
         <div class="trust-grid fade-in">
@@ -689,7 +693,7 @@
                 <div class="trust-label">CPAP Patients Managed</div>
             </div>
             <div class="trust-card">
-                <div class="trust-value">3</div>
+                <div class="trust-value">12</div>
                 <div class="trust-label">Peer-Reviewed Publications</div>
             </div>
             <div class="trust-card">
@@ -699,9 +703,9 @@
         </div>
         <div class="trust-narrative fade-in">
             <p><strong>Data informs. It doesn't replace judgment.</strong></p>
-            <p>I've built analytical tools that track compliance patterns across thousands of patients &mdash; and that experience gives me an intuition for what's going wrong before the numbers fully confirm it. But the numbers are only part of the picture.</p>
-            <p>The patient who says "it feels like I'm suffocating" needs someone who understands both the physiology of pressure intolerance <em>and</em> the anxiety of being told to strap a mask to your face every night. The patient with a "normal" AHI but persistent fatigue needs someone who looks beyond the headline number to leak patterns, sleep architecture, and positional data.</p>
-            <p>That's what comprehensive care means: <strong>the clinical depth to understand what's happening, the analytical rigor to prove it, and the compassion to explain it in a way that makes you feel heard.</strong></p>
+            <p>Working with thousands of CPAP patients has given me an intuition for what's going wrong &mdash; often before the numbers fully confirm it. But intuition alone isn't enough, and numbers alone aren't either.</p>
+            <p>The patient who says "I can't tolerate the pressure" needs someone who understands both the physiology of pressure intolerance <em>and</em> the anxiety of wearing a mask every night. The patient with a "normal" AHI but persistent fatigue needs someone who looks beyond the headline number to leak patterns, sleep architecture, and positional data.</p>
+            <p>That's what comprehensive care means: <strong>the clinical depth to understand what's happening, the analytical rigor to prove it, and the patience to explain it in a way that makes you feel heard.</strong></p>
         </div>
     </div>
 </section>
@@ -725,7 +729,7 @@
             <div class="about-card">
                 <div class="about-name">Kasim Hassen</div>
                 <div class="about-title">RRT, RCP, MD</div>
-                <div class="about-tagline">"I became a respiratory therapist because I believe breathing well is the foundation of living well."</div>
+                <div class="about-tagline">"I became a respiratory therapist because I believe breathing well is the foundation of living well. I became a doctor to deeply understand the disease processes behind it."</div>
                 <ul class="about-creds">
                     <li><svg class="about-check" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> Registered Respiratory Therapist</li>
                     <li><svg class="about-check" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> Doctor of Medicine (MD)</li>
@@ -742,11 +746,22 @@
                 <p>My research background means I don't rely on intuition alone. I analyze your therapy data with the same rigor I applied to peer-reviewed clinical studies &mdash; and I translate those findings into changes you can actually feel.</p>
 
                 <h3 style="margin-top: 1.5rem; font-size: 1rem;">Peer-Reviewed Research</h3>
-                <ul class="pub-list">
-                    <li>Hassen K, Fitzgerald K, Katheria AC, et al. Comparative accuracy of a wireless heart-rate monitor vs standard ECG during resuscitation of very preterm neonates. <span class="journal">Resuscitation</span>. 2025.</li>
-                    <li>Katheria AC, Hassen K, Rich W, et al. Resuscitation outcomes of infants who do not achieve target oxygen saturation at five minutes of life. <span class="journal">Journal of Perinatology</span>. 2019.</li>
-                    <li>Katheria AC, Mercer J, Brown M, Pierce B, Hassen K, Finer N. Umbilical cord milking at birth for term newborns with acidosis. <span class="journal">Journal of Perinatology</span>. 2018.</li>
-                </ul>
+                <div class="pub-scroll">
+                    <ul class="pub-list">
+                        <li><strong>Hassen K</strong>, Fitzgerald K, Ines F, Katheria AC. Comparative accuracy of a wireless heart rate monitor (NeoBeat) versus standard EKG during resuscitation of very premature neonates. <span class="journal">Resuscitation</span>. 2025.</li>
+                        <li>Katheria AC, Szychowski JM, Essers J, Mendler MR, Dempsey EM, Schmolzer GM, Arnell K, Rich WD, <strong>Hassen K</strong>, et al. Early cardiac and cerebral hemodynamics with umbilical cord milking compared with delayed cord clamping in infants born preterm. <span class="journal">The Journal of Pediatrics</span>. 2020.</li>
+                        <li>Katheria AC, <strong>Hassen K</strong>, Rich W, Poeltler D, Finer N. Resuscitation outcomes of infants that do not achieve a 5 min target SpO2 saturation. <span class="journal">Journal of Perinatology</span>. 2019.</li>
+                        <li>Katheria AC, Sorkhi SR, <strong>Hassen K</strong>, Faksh A, Ghorishi Z, Poeltler D. Acceptability of bedside resuscitation with intact umbilical cord to clinicians and patients' families in the United States. <span class="journal">Frontiers in Pediatrics</span>. 2018.</li>
+                        <li>Ruangkit C, Leon M, <strong>Hassen K</strong>, Baker K, Poeltler D, Katheria A. Maternal bleeding complications following early versus delayed umbilical cord clamping in multiple pregnancies. <span class="journal">BMC Pregnancy and Childbirth</span>. 2018.</li>
+                        <li>Katheria AC, Harbert MJ, Nagaraj SB, Arnell K, Poeltler DM, Brown MK, Rich W, <strong>Hassen KO</strong>, Finer N. The Neu-Prem Trial: neuromonitoring of brains of infants born preterm during resuscitation. <span class="journal">The Journal of Pediatrics</span>. 2018.</li>
+                        <li>Brown MK, Poeltler DM, <strong>Hassen KO</strong>, Lazarus DV, Brown VK, Stout JJ, Rich WD, Katheria AC. Incidence of hypocapnia, hypercapnia, and acidosis and the associated risk of adverse events in preterm neonates. <span class="journal">Respiratory Care</span>. 2018.</li>
+                        <li>Katheria V, Poeltler DM, Brown MK, <strong>Hassen KO</strong>, Patel D, Rich W, Finer NN, Katheria AC. Early prediction of a significant patent ductus arteriosus in infants &lt;32 weeks gestational age. <span class="journal">Journal of Neonatal-Perinatal Medicine</span>. 2018.</li>
+                        <li>Katheria A, Mercer J, Brown M, Rich W, Baker K, Harbert MJ, Pierce B, <strong>Hassen K</strong>, Finer N. Umbilical cord milking at birth for term newborns with acidosis: neonatal outcomes. <span class="journal">Journal of Perinatology</span>. 2018.</li>
+                        <li>Katheria A, Arnell K, Brown M, <strong>Hassen K</strong>, Maldonado M, Rich W, Finer N. A pilot randomized controlled trial of EKG for neonatal resuscitation. <span class="journal">PLoS ONE</span>. 2017.</li>
+                        <li>Katheria AC, Brown MK, Faksh A, <strong>Hassen KO</strong>, Rich W, Lazarus D, Steen J, Daneshmand SS, Finer NN. Delayed cord clamping in newborns born at term at risk for resuscitation: a feasibility randomized clinical trial. <span class="journal">The Journal of Pediatrics</span>. 2017.</li>
+                        <li>Katheria AC, Brown MK, Hassan K, Poeltler DM, Patel DA, Brown VK, Sauberan JB. Hemodynamic effects of sodium bicarbonate administration. <span class="journal">Journal of Perinatology</span>. 2017.</li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
@@ -950,7 +965,7 @@
                 <p>Comprehensive, compassionate CPAP therapy optimization. Combining clinical expertise, patient partnership, and evidence-based care to help you sleep better.</p>
             </div>
             <ul class="footer-links">
-                <li><a href="#approach">Our Approach</a></li>
+                <li><a href="#approach">My Approach</a></li>
                 <li><a href="#services">Services</a></li>
                 <li><a href="#experience">Experience</a></li>
                 <li><a href="#about">About Kasim</a></li>
