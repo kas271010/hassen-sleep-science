@@ -1001,7 +1001,11 @@
                     <strong>What to expect:</strong> The initial consultation is a thorough conversation about your CPAP experience, followed by a detailed review of your therapy data. Come ready to share what's bothering you &mdash; no concern is too small.
                 </div>
             </div>
-            <form class="contact-form" id="contactForm" action="https://formspree.io/f/hassensleepscience" method="POST">
+            <form class="contact-form" id="contactForm" action="https://api.web3forms.com/submit" method="POST">
+                <input type="hidden" name="access_key" value="2942bb44-82bb-416e-ae02-0df36865d919">
+                <input type="hidden" name="subject" value="New inquiry from cpapairway.com">
+                <input type="hidden" name="from_name" value="Hassen Sleep Science Website">
+                <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" style="display:none !important">
                 <div class="form-row">
                     <input type="text" name="name" placeholder="Your Name" required>
                     <input type="email" name="email" placeholder="Email Address" required>
@@ -1021,6 +1025,7 @@
                 </select>
                 <textarea name="message" placeholder="Tell me a bit about your situation &mdash; what's working, what isn't, and what you're hoping to improve." required></textarea>
                 <button type="submit" class="btn btn-primary">Send Message</button>
+                <p id="formStatus" role="status" aria-live="polite" style="margin-top:1rem;font-weight:600;display:none;"></p>
             </form>
         </div>
     </div>
@@ -1066,10 +1071,34 @@
     }, { threshold: 0.1 });
     document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
-    document.getElementById('contactForm').addEventListener('submit', function(e) {
-        if (this.action.includes('your-form-id')) {
-            e.preventDefault();
-            alert('Thank you for your interest! The contact form will be connected shortly. In the meantime, please reach out directly via email or phone.');
+    const contactForm = document.getElementById('contactForm');
+    const formStatus = document.getElementById('formStatus');
+    contactForm.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const btn = contactForm.querySelector('button[type=submit]');
+        const original = btn.textContent;
+        btn.disabled = true; btn.textContent = 'Sending…';
+        formStatus.style.display = 'none';
+        try {
+            const res = await fetch('https://api.web3forms.com/submit', {
+                method: 'POST',
+                body: new FormData(contactForm),
+                headers: { 'Accept': 'application/json' }
+            });
+            const json = await res.json();
+            if (res.ok && json.success) {
+                formStatus.textContent = "Thank you — your message was sent. I'll be in touch personally within one business day.";
+                formStatus.style.color = '#1a7f5a';
+                contactForm.reset();
+            } else {
+                throw new Error(json.message || 'Submission failed');
+            }
+        } catch (err) {
+            formStatus.textContent = "Something went wrong. Please email khassen@cpapairway.com or call (810) 523-8233 directly.";
+            formStatus.style.color = '#c0392b';
+        } finally {
+            formStatus.style.display = 'block';
+            btn.disabled = false; btn.textContent = original;
         }
     });
 </script>
