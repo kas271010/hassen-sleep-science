@@ -69,8 +69,8 @@ def road_svg(stops):
         d += f" C {x0} {ym} {x1} {ym} {x1} {y1}"
     d += f" L {xe} {ye+40} C {xe} {ye+170} 360 {ye+110} 360 {H-78}"
     short_title = {5: "Get your CPAP", 6: "Get coaching", 9: "A better night's sleep"}
-    short_sub = {1: "Tired? Snoring? Gasping for air?", 2: "One night at home, small device", 3: "We go over it in plain words",
-                 4: "I write it myself", 5: "from your supply company (DME)", 6: "I review your nightly data",
+    short_sub = {1: "Tired, snoring, gasping? Talk to your doctor", 2: "One night at home, small device", 3: "We go over it in plain words",
+                 4: "I write it myself, as your physician", 5: "from your supply company (DME)", 6: "I review your nightly data. I may call you first.",
                  7: "Pressure, humidity, ramp, mask", 8: "Until we get it right", 9: "Congratulations. You made it."}
     out = [f'<svg class="infographic road" viewBox="0 0 {W} {H}" role="img" aria-labelledby="road-t road-d" xmlns="http://www.w3.org/2000/svg">',
            '<title id="road-t">The map to a better night\'s sleep: nine stops along a winding road</title>',
@@ -472,7 +472,7 @@ PAGES["cpap-users.html"] = dict(
       {check_item("The name of the company that supplies your equipment")}
       {check_item("A short list of what bothers you most")}
     </ul>
-    <p>New to all this, or think you might have sleep apnea but never had a test? I can arrange a home sleep test and write the prescription that follows. Just call.</p>
+    <p>Never had a sleep test? Do you feel tired when you wake up, a headache that lingers, problems concentrating? Snoring, drooling, gasping for air? These are signs and symptoms of sleep apnea. I can arrange a home sleep test and write the prescription that follows. Just call.</p>
   </div>
 </section>
 
@@ -578,15 +578,6 @@ PAGES["better-sleep.html"] = dict(
   </div>
 </section>
 
-<section class="section">
-  <div class="wrap">
-    <h2>Each stop, in detail</h2>
-    <ol class="map">
-      {"".join(map_stop(*s) for s in MAP_STOPS)}
-    </ol>
-  </div>
-</section>
-
 <section class="section alt">
   <div class="wrap">
     <p class="eyebrow">What you get at the end</p>
@@ -598,17 +589,6 @@ PAGES["better-sleep.html"] = dict(
 
 <section class="section">
   <div class="wrap">
-    <h2>The benefits, in detail</h2>
-
-    <h3 class="tier">Well proven</h3>
-    <ul class="benefits">
-      {"".join(benefit(*b) for b in BENEFITS_PROVEN)}
-    </ul>
-
-    <h3 class="tier">Likely, especially for regular users</h3>
-    <ul class="benefits">
-      {"".join(benefit(*b) for b in BENEFITS_LIKELY)}
-    </ul>
     <p class="muted" style="font-size:1rem">Sources: American Academy of Sleep Medicine clinical practice guideline on PAP therapy (2019); the SAVE trial, New England Journal of Medicine (2016); meta-analysis of crash risk before and after CPAP, SLEEP (2010); reviews of CPAP and atrial fibrillation, blood pressure, and nocturia. Ask me and I will walk you through any of them.</p>
   </div>
 </section>
