@@ -320,7 +320,7 @@ select { appearance: none; -webkit-appearance: none; background-image: url("data
 
 /* Infographics (inline SVG) */
 .info-wrap { max-width: 760px; margin: 0 auto; }
-.info-wrap.wide { max-width: 1240px; }
+.info-wrap.wide { max-width: 1400px; }
 .infographic { width: 100%; height: auto; display: block; }
 .sun-stacked { display: none; max-width: 640px; margin: 0 auto; }
 @media (max-width: 719px) { .sun-radial { display: none; } .sun-stacked { display: block; } }

@@ -69,13 +69,13 @@ def road_svg(stops):
         d += f" C {x0} {ym} {x1} {ym} {x1} {y1}"
     d += f" L {xe} {ye+40} C {xe} {ye+170} 360 {ye+110} 360 {H-78}"
     short_title = {5: "Get your CPAP", 6: "Get coaching", 9: "A better night's sleep"}
-    short_sub = {1: "Tired, snoring, gasping? Talk to your doctor", 2: "One night at home, small device", 3: "We go over it in plain words",
-                 4: "I write it myself, as your physician", 5: "from your supply company (DME)", 6: "I review your nightly data. I may call you first.",
+    short_sub = {1: "Tired? Snoring? Gasping for air?", 2: "One night at home, small device", 3: "We go over it in plain words",
+                 4: "I write it myself, as your physician", 5: "from your supply company (DME)", 6: "I review your data. I may call first.",
                  7: "Pressure, humidity, ramp, mask", 8: "Until we get it right", 9: "Congratulations. You made it."}
     out = [f'<svg class="infographic road" viewBox="0 0 {W} {H}" role="img" aria-labelledby="road-t road-d" xmlns="http://www.w3.org/2000/svg">',
            '<title id="road-t">The map to a better night\'s sleep: nine stops along a winding road</title>',
            f'<desc id="road-d">{" ".join(f"Stop {n}: {t}." for n,_,t,_,_,_ in stops)} Navy stops are with Dr. Hassen; gray stops are with a partner. The road ends at a sunrise.</desc>',
-           f'<style>.rt{{font-family:{FONT};font-weight:700;font-size:30px;fill:{INK}}}.rs{{font-family:{FONT};font-size:23px;fill:{INK2}}}.rn{{font-family:{SERIF};font-weight:700;font-size:34px;fill:{WHITE}}}.rl{{font-family:{FONT};font-weight:700;font-size:22px;fill:{INK2}}}.rf{{font-family:{SERIF};font-weight:700;font-size:30px;fill:{NAVY}}}</style>',
+           f'<style>.rt{{font-family:{FONT};font-weight:700;font-size:30px;fill:{INK}}}.rs{{font-family:{FONT};font-size:21px;fill:{INK2}}}.rn{{font-family:{SERIF};font-weight:700;font-size:34px;fill:{WHITE}}}.rl{{font-family:{FONT};font-weight:700;font-size:22px;fill:{INK2}}}.rf{{font-family:{SERIF};font-weight:700;font-size:30px;fill:{NAVY}}}</style>',
            # legend, top right, out of the road's way
            f'<circle cx="470" cy="34" r="12" fill="{NAVY}"/><text x="490" y="42" class="rl">With Dr. Hassen</text>',
            f'<circle cx="470" cy="70" r="12" fill="#9AA3B2"/><text x="490" y="78" class="rl">With a partner</text>',
@@ -121,7 +121,7 @@ BENEFIT_STATS = [
     ("brain",   "Clearer",   ["thinking, memory", "and focus"]),
     ("head",    "Fewer",     ["morning", "headaches"]),
     ("rhythm",  "Steadier",  ["heart rhythm for", "regular users with AFib"]),
-    ("shield",  "Better",    ["quality of life,", "the reason doctors prescribe it"]),
+    ("shield",  "Better",    ["quality of life,", "why doctors prescribe it"]),
 ]
 
 
@@ -143,7 +143,7 @@ SUN_STYLE = (f'<style>.st{{font-family:{SERIF};font-weight:700;font-size:38px;fi
 def sun_svg_radial():
     """Wide screens: the sun in the middle, ten benefits around it."""
     import math
-    W, H, cx, cy, R = 1240, 1000, 620, 500, 150
+    W, H, cx, cy, R = 1400, 1000, 700, 500, 150
     out = [f'<svg class="infographic sun-radial" viewBox="0 0 {W} {H}" role="img" aria-labelledby="sunr-t sunr-d" xmlns="http://www.w3.org/2000/svg">',
            '<title id="sunr-t">What a better night\'s sleep means: ten benefits around a rising sun</title>',
            f'<desc id="sunr-d">{" ".join(s + " " + " ".join(l) + "." for _, s, l in BENEFIT_STATS)}</desc>', SUN_STYLE]
