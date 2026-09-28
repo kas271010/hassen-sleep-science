@@ -72,7 +72,7 @@ def road_svg(stops):
     short_sub = {1: "Tired? Snoring? Gasping for air?", 2: "One night at home, small device", 3: "We go over it in plain words",
                  4: "I write it myself, as your physician", 5: "from your supply company (DME)", 6: "I review your data. I may call first.",
                  7: "Pressure, humidity, ramp, mask", 8: "Until we get it right", 9: "Congratulations. You made it."}
-    out = [f'<svg class="infographic road" viewBox="0 0 {W} {H}" role="img" aria-labelledby="road-t road-d" xmlns="http://www.w3.org/2000/svg">',
+    out = [f'<svg class="infographic road" viewBox="-60 0 {W+120} {H+50}" role="img" aria-labelledby="road-t road-d" xmlns="http://www.w3.org/2000/svg">',
            '<title id="road-t">The map to a better night\'s sleep: nine stops along a winding road</title>',
            f'<desc id="road-d">{" ".join(f"Stop {n}: {t}." for n,_,t,_,_,_ in stops)} Navy stops are with Dr. Hassen; gray stops are with a partner. The road ends at a sunrise.</desc>',
            f'<style>.rt{{font-family:{FONT};font-weight:700;font-size:30px;fill:{INK}}}.rs{{font-family:{FONT};font-size:21px;fill:{INK2}}}.rn{{font-family:{SERIF};font-weight:700;font-size:34px;fill:{WHITE}}}.rl{{font-family:{FONT};font-weight:700;font-size:22px;fill:{INK2}}}.rf{{font-family:{SERIF};font-weight:700;font-size:30px;fill:{NAVY}}}</style>',
@@ -111,17 +111,81 @@ def road_svg(stops):
     return "\n".join(out)
 
 
+def road_svg_phone(stops):
+    """Phone layout: drawn at 420 units wide so it renders near 1:1. Road hugs the left, labels on the right."""
+    import math
+    W, top, gap = 420, 110, 132
+    pts = [((60 if i % 2 == 0 else 100), top + i * gap) for i in range(len(stops))]
+    xe, ye = pts[-1]
+    H = ye + 250
+    d = f"M {pts[0][0]} 20 L {pts[0][0]} {pts[0][1]}"
+    for (x0, y0), (x1, y1) in zip(pts, pts[1:]):
+        ym = (y0 + y1) / 2
+        d += f" C {x0} {ym} {x1} {ym} {x1} {y1}"
+    d += f" L {xe} {ye+30} C {xe} {ye+120} 210 {ye+80} 210 {H-70}"
+    short_title = {5: "Get your CPAP", 6: "Get coaching", 9: "A better night's sleep"}
+    sub = {1: "Tired? Snoring? Gasping?", 2: "One night at home", 3: "Explained in plain words",
+           4: "Written by me", 5: "From your supply company", 6: "I may call you first",
+           7: "Pressure, mask, comfort", 8: "Until we get it right", 9: "Congratulations!"}
+    out = [f'<svg class="infographic road-phone" viewBox="0 0 {W} {H}" role="img" aria-labelledby="roadp-t roadp-d" xmlns="http://www.w3.org/2000/svg">',
+           '<title id="roadp-t">The map to a better night\'s sleep: nine stops along a winding road</title>',
+           f'<desc id="roadp-d">{" ".join(f"Stop {n}: {t}." for n,_,t,_,_,_ in stops)} The road ends at a sunrise.</desc>',
+           f'<style>.pt{{font-family:{FONT};font-weight:700;font-size:25px;fill:{INK}}}.ps{{font-family:{FONT};font-size:20px;fill:{INK2}}}.pn{{font-family:{SERIF};font-weight:700;font-size:26px;fill:{WHITE}}}.pf{{font-family:{SERIF};font-weight:700;font-size:26px;fill:{NAVY}}}</style>',
+           f'<g transform="translate(210 {H-50})"><path d="M -150 0 A 150 150 0 0 1 150 0 Z" fill="{AMBER}" opacity="0.3"/><path d="M -95 0 A 95 95 0 0 1 95 0 Z" fill="{AMBER}"/>'
+           + "".join(f'<line x1="{120*math.cos(a):.0f}" y1="{-120*math.sin(a):.0f}" x2="{160*math.cos(a):.0f}" y2="{-160*math.sin(a):.0f}" stroke="{AMBER}" stroke-width="8" stroke-linecap="round"/>' for a in [0.3, 0.75, 1.2, 1.94, 2.39, 2.84])
+           + '</g>',
+           f'<path d="{d}" fill="none" stroke="{ROAD}" stroke-width="34" stroke-linecap="round"/>',
+           f'<path d="{d}" fill="none" stroke="{AMBER}" stroke-width="4" stroke-dasharray="18 16" stroke-linecap="round"/>',
+           f'<rect x="40" y="{H-54}" width="340" height="8" rx="4" fill="{ROAD}"/>',
+           f'<text x="210" y="{H-14}" text-anchor="middle" class="pf">Better sleep</text>']
+    for (n, key, title, text, with_me, partner), (x, y) in zip(stops, pts):
+        fill = NAVY if with_me else "#9AA3B2"
+        out.append(f'<circle cx="{x}" cy="{y}" r="28" fill="{fill}" stroke="{WHITE}" stroke-width="5"/>')
+        out.append(f'<text x="{x}" y="{y+9}" text-anchor="middle" class="pn">{n}</text>')
+        out.append(f'<text x="150" y="{y-2}" class="pt">{short_title.get(n, title)}</text>')
+        out.append(f'<text x="150" y="{y+26}" class="ps">{sub[n]}</text>')
+    out.append('</svg>')
+    return "\n".join(out)
+
+
+def sun_svg_phone():
+    """Phone layout: sun on top, a beam down the left, benefits reading left to right. 420 units wide."""
+    W, top, gap = 420, 130, 104
+    H = top + 300 + len(BENEFIT_STATS) * gap
+    bx = 44
+    out = [f'<svg class="infographic sun-phone" viewBox="0 0 {W} {H}" role="img" aria-labelledby="sunp-t sunp-d" xmlns="http://www.w3.org/2000/svg">',
+           '<title id="sunp-t">What a better night\'s sleep means: ten benefits</title>',
+           f'<desc id="sunp-d">{" ".join(s + " " + " ".join(l) + "." for _, s, l in BENEFIT_STATS)}</desc>',
+           f'<style>.st{{font-family:{SERIF};font-weight:700;font-size:30px;fill:{NAVY}}}.ss{{font-family:{FONT};font-weight:700;font-size:20px;fill:{NAVY}}}'
+           f'.bn{{font-family:{SERIF};font-weight:700;font-size:30px;fill:{NAVY}}}.bl{{font-family:{FONT};font-size:21px;fill:{INK2}}}</style>',
+           f'<rect x="{bx-6}" y="{top}" width="12" height="{H-top-40}" rx="6" fill="{AMBER}" opacity="0.6"/>']
+    import math
+    cx, cy, r = 210, top - 10, 96
+    rays = "".join(f'<line x1="{cx+(r+12)*math.cos(a):.0f}" y1="{cy+(r+12)*math.sin(a):.0f}" x2="{cx+(r+34)*math.cos(a):.0f}" y2="{cy+(r+34)*math.sin(a):.0f}" stroke="{AMBER}" stroke-width="7" stroke-linecap="round"/>' for a in [i*math.pi/8 for i in range(16)])
+    out.append(f'<g transform="translate(0 {r+40})"><circle cx="{cx}" cy="{cy}" r="{r+48}" fill="{AMBER}" opacity="0.18"/>{rays}<circle cx="{cx}" cy="{cy}" r="{r}" fill="{AMBER}"/>'
+               f'<text x="{cx}" y="{cy-10}" text-anchor="middle" class="st">A better</text><text x="{cx}" y="{cy+24}" text-anchor="middle" class="st">night\'s sleep</text>'
+               f'<text x="{cx}" y="{cy+54}" text-anchor="middle" class="ss">means…</text></g>')
+    for i, (key, stat, lines) in enumerate(BENEFIT_STATS):
+        y = top + r + 230 + i * gap
+        out.append(f'<circle cx="{bx}" cy="{y}" r="30" fill="{WHITE}" stroke="{TEAL}" stroke-width="4"/>')
+        out.append(icon_at(key, bx - 17, y - 17, 34, TEAL))
+        out.append(f'<text x="{bx+48}" y="{y-4}" class="bn">{stat}</text>')
+        out.append(f'<text x="{bx+48}" y="{y+26}" class="bl">{lines[0]} {lines[1]}</text>')
+    out.append('</svg>')
+    return "\n".join(out)
+
+
 BENEFIT_STATS = [
-    ("car",     "70%",       ["fewer car crashes", "among regular users"]),
+    ("car",     "70%",       ["fewer crashes", "behind the wheel"]),
     ("bp",      "2–7",       ["points lower", "blood pressure"]),
-    ("night",   "1 fewer",   ["bathroom trip", "per night, on average"]),
-    ("mood",    "6 months",  ["or less to a", "measurable lift in mood"]),
-    ("energy",  "3 points",  ["less sleepy on the", "daytime sleepiness scale"]),
-    ("partner", "Quieter",   ["nights: snoring drops,", "your partner sleeps too"]),
-    ("brain",   "Clearer",   ["thinking, memory", "and focus"]),
+    ("night",   "1 fewer",   ["bathroom trip", "a night"]),
+    ("mood",    "6 months",  ["or less to", "a better mood"]),
+    ("energy",  "3 points",  ["less sleepy", "during the day"]),
+    ("partner", "Quieter",   ["nights for", "your partner"]),
+    ("brain",   "Clearer",   ["thinking", "and memory"]),
     ("head",    "Fewer",     ["morning", "headaches"]),
-    ("rhythm",  "Steadier",  ["heart rhythm for", "regular users with AFib"]),
-    ("shield",  "Better",    ["quality of life,", "why doctors prescribe it"]),
+    ("rhythm",  "Steadier",  ["heart rhythm", "(AFib)"]),
+    ("shield",  "Better",    ["quality", "of life"]),
 ]
 
 
@@ -137,14 +201,14 @@ def sun_core(cx, cy, r):
 
 
 SUN_STYLE = (f'<style>.st{{font-family:{SERIF};font-weight:700;font-size:38px;fill:{NAVY}}}.ss{{font-family:{FONT};font-weight:700;font-size:24px;fill:{NAVY}}}'
-             f'.bn{{font-family:{SERIF};font-weight:700;font-size:44px;fill:{NAVY}}}.bl{{font-family:{FONT};font-size:24px;fill:{INK2}}}</style>')
+             f'.bn{{font-family:{SERIF};font-weight:700;font-size:44px;fill:{NAVY}}}.bl{{font-family:{FONT};font-size:28px;fill:{INK2}}}</style>')
 
 
 def sun_svg_radial():
     """Wide screens: the sun in the middle, ten benefits around it."""
     import math
     W, H, cx, cy, R = 1400, 1000, 700, 500, 150
-    out = [f'<svg class="infographic sun-radial" viewBox="0 0 {W} {H}" role="img" aria-labelledby="sunr-t sunr-d" xmlns="http://www.w3.org/2000/svg">',
+    out = [f'<svg class="infographic sun-radial" viewBox="-60 -20 {W+120} {H+40}" role="img" aria-labelledby="sunr-t sunr-d" xmlns="http://www.w3.org/2000/svg">',
            '<title id="sunr-t">What a better night\'s sleep means: ten benefits around a rising sun</title>',
            f'<desc id="sunr-d">{" ".join(s + " " + " ".join(l) + "." for _, s, l in BENEFIT_STATS)}</desc>', SUN_STYLE]
     n = len(BENEFIT_STATS)
@@ -164,8 +228,8 @@ def sun_svg_radial():
             anchor = "start" if c > 0 else "end"
             tx = ix + (56 if c > 0 else -56)
             out.append(f'<text x="{tx:.0f}" y="{iy-4:.0f}" text-anchor="{anchor}" class="bn">{stat}</text>')
-            out.append(f'<text x="{tx:.0f}" y="{iy+26:.0f}" text-anchor="{anchor}" class="bl">{lines[0]}</text>')
-            out.append(f'<text x="{tx:.0f}" y="{iy+54:.0f}" text-anchor="{anchor}" class="bl">{lines[1]}</text>')
+            out.append(f'<text x="{tx:.0f}" y="{iy+30:.0f}" text-anchor="{anchor}" class="bl">{lines[0]}</text>')
+            out.append(f'<text x="{tx:.0f}" y="{iy+62:.0f}" text-anchor="{anchor}" class="bl">{lines[1]}</text>')
     out.append(sun_core(cx, cy, R))
     out.append('</svg>')
     return "\n".join(out)
@@ -173,13 +237,13 @@ def sun_svg_radial():
 
 def sun_svg_stacked():
     """Phones: the sun on top, a sunbeam down the middle, benefits alternating left and right."""
-    W, top, gap = 720, 200, 168
+    W, top, gap = 720, 200, 196
     n = len(BENEFIT_STATS)
     H = top + 190 + n * gap
     cx = 360
-    out = [f'<svg class="infographic sun-stacked" viewBox="0 0 {W} {H}" role="img" aria-labelledby="suns-t suns-d" xmlns="http://www.w3.org/2000/svg">',
+    out = [f'<svg class="infographic sun-stacked" viewBox="-40 0 {W+80} {H+30}" role="img" aria-labelledby="suns-t suns-d" xmlns="http://www.w3.org/2000/svg">',
            '<title id="suns-t">What a better night\'s sleep means: ten benefits along a sunbeam</title>',
-           f'<desc id="suns-d">{" ".join(s + " " + " ".join(l) + "." for _, s, l in BENEFIT_STATS)}</desc>', SUN_STYLE.replace("font-size:44px","font-size:50px").replace("font-size:24px;fill:"+INK2,"font-size:29px;fill:"+INK2),
+           f'<desc id="suns-d">{" ".join(s + " " + " ".join(l) + "." for _, s, l in BENEFIT_STATS)}</desc>', SUN_STYLE.replace("font-size:44px","font-size:62px").replace("font-size:24px;fill:"+INK2,"font-size:38px;fill:"+INK2),
            f'<rect x="{cx-8}" y="{top+150}" width="16" height="{H-top-190}" fill="{AMBER}" opacity="0.6"/>',
            sun_core(cx, top, 130)]
     for i, (key, stat, lines) in enumerate(BENEFIT_STATS):
@@ -188,13 +252,13 @@ def sun_svg_stacked():
         out.append(f'<circle cx="{cx}" cy="{y}" r="36" fill="{WHITE}" stroke="{TEAL}" stroke-width="4"/>')
         out.append(icon_at(key, cx - 21, y - 21, 42, TEAL))
         if left:
-            out.append(f'<text x="{cx-56}" y="{y-6}" text-anchor="end" class="bn">{stat}</text>')
-            out.append(f'<text x="{cx-56}" y="{y+24}" text-anchor="end" class="bl">{lines[0]}</text>')
-            out.append(f'<text x="{cx-56}" y="{y+52}" text-anchor="end" class="bl">{lines[1]}</text>')
+            out.append(f'<text x="{cx-56}" y="{y-2}" text-anchor="end" class="bn">{stat}</text>')
+            out.append(f'<text x="{cx-56}" y="{y+40}" text-anchor="end" class="bl">{lines[0]}</text>')
+            out.append(f'<text x="{cx-56}" y="{y+80}" text-anchor="end" class="bl">{lines[1]}</text>')
         else:
-            out.append(f'<text x="{cx+56}" y="{y-6}" class="bn">{stat}</text>')
-            out.append(f'<text x="{cx+56}" y="{y+24}" class="bl">{lines[0]}</text>')
-            out.append(f'<text x="{cx+56}" y="{y+52}" class="bl">{lines[1]}</text>')
+            out.append(f'<text x="{cx+56}" y="{y-2}" class="bn">{stat}</text>')
+            out.append(f'<text x="{cx+56}" y="{y+40}" class="bl">{lines[0]}</text>')
+            out.append(f'<text x="{cx+56}" y="{y+80}" class="bl">{lines[1]}</text>')
     out.append('</svg>')
     return "\n".join(out)
 
@@ -574,7 +638,7 @@ PAGES["better-sleep.html"] = dict(
 <section class="section alt">
   <div class="wrap">
     <h2 class="visually-hidden">The map</h2>
-    <div class="info-wrap">{road_svg(MAP_STOPS)}</div>
+    <div class="info-wrap">{road_svg(MAP_STOPS)}{road_svg_phone(MAP_STOPS)}</div>
   </div>
 </section>
 
@@ -583,7 +647,7 @@ PAGES["better-sleep.html"] = dict(
     <p class="eyebrow">What you get at the end</p>
     <h2>What does a better night's sleep mean?</h2>
     <p class="lead">What studies have found when people with sleep apnea use CPAP regularly. Results differ from person to person. Using the machine most of the night, most nights, is what makes them show up.</p>
-    <div class="info-wrap wide">{sun_svg_radial()}{sun_svg_stacked()}</div>
+    <div class="info-wrap wide">{sun_svg_radial()}{sun_svg_phone()}</div>
   </div>
 </section>
 
