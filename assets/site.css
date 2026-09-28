@@ -359,3 +359,10 @@ select { appearance: none; -webkit-appearance: none; background-image: url("data
 }
 @media print { .site-header .nav, .call-bar, .btn-row { display: none !important; } body { padding-bottom: 0; } }
 
+
+/* Home byline: small round photo beside the credentials (replaces the large hero portrait) */
+.byline { display: flex; align-items: center; gap: 20px; margin-top: 28px; }
+.byline img { width: 112px; height: 112px; border-radius: 50%; object-fit: cover; object-position: 50% 18%; flex: none; border: 3px solid var(--white); box-shadow: 0 0 0 1px var(--rule); }
+.byline-name { font-weight: 700; font-size: 1.1875rem; margin: 0 0 4px; }
+.byline .trust { margin-top: 4px; }
+@media (max-width: 719px) { .byline img { width: 88px; height: 88px; } .byline { gap: 16px; align-items: flex-start; } }

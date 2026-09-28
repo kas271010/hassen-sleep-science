@@ -469,22 +469,25 @@ PAGES["index.html"] = dict(
     desc="Michigan-licensed physician and respiratory therapist who fixes CPAP problems by video or phone. Prescriptions, settings, masks, and monthly follow-up.",
     body=f"""
 <section class="hero">
-  <div class="wrap hero-grid">
-    <div>
-      <p class="eyebrow">Michigan telehealth &middot; Physician and respiratory therapist</p>
-      <h1>Your CPAP should feel right. I'm the doctor who makes it right.</h1>
-      <p class="lead">I'm Dr. Kasim Hassen. I fix leaking masks, wrong pressures, and machines that still leave you tired. By video or phone, from your home, anywhere in Michigan.</p>
-      <div class="btn-row">
-        <a class="btn primary" href="contact.html">Request a visit</a>
-        <a class="btn secondary" href="{PHONE_TEL}">{ICON_PHONE}Call {PHONE}</a>
-      </div>
-      <ul class="trust">
-        <li>{ICON_CHECK}Michigan-licensed physician</li>
-        <li>{ICON_CHECK}10+ years as a respiratory therapist</li>
-        <li>{ICON_CHECK}3,200+ CPAP patients helped</li>
-      </ul>
+  <div class="wrap">
+    <p class="eyebrow">Michigan telehealth &middot; Physician and respiratory therapist</p>
+    <h1>Your CPAP should feel right. I'm the doctor who makes it right.</h1>
+    <p class="lead">I fix leaking masks, wrong pressures, and machines that still leave you tired. By video or phone, from your home, anywhere in Michigan.</p>
+    <div class="btn-row">
+      <a class="btn primary" href="contact.html">Request a visit</a>
+      <a class="btn secondary" href="{PHONE_TEL}">{ICON_PHONE}Call {PHONE}</a>
     </div>
-    <div class="portrait"><img src="assets/dr-hassen.jpg" width="800" height="1000" alt="Dr. Kasim Hassen in a white coat with a stethoscope" fetchpriority="high"></div>
+    <div class="byline">
+      <img src="assets/dr-hassen-square.jpg" width="600" height="600" alt="Dr. Kasim Hassen" fetchpriority="high">
+      <div>
+        <p class="byline-name">Dr. Kasim Hassen, MD, RCP</p>
+        <ul class="trust">
+          <li>{ICON_CHECK}Michigan-licensed physician</li>
+          <li>{ICON_CHECK}10+ years as a respiratory therapist</li>
+          <li>{ICON_CHECK}3,200+ CPAP patients helped</li>
+        </ul>
+      </div>
+    </div>
   </div>
 </section>
 """)
