@@ -6,7 +6,7 @@ from pathlib import Path
 from playwright.sync_api import sync_playwright
 
 BASE = sys.argv[1] if len(sys.argv) > 1 else "http://127.0.0.1:8765"
-PAGES = ["index.html", "cpap-users.html", "professionals.html", "better-sleep.html", "about.html", "pricing.html", "contact.html", "404.html"]
+PAGES = ["index.html", "cpap-users.html", "professionals.html", "better-sleep.html", "about.html", "contact.html", "404.html"]
 OUT = Path(".playwright-mcp/qa"); OUT.mkdir(parents=True, exist_ok=True)
 AXE = urllib.request.urlopen("https://cdnjs.cloudflare.com/ajax/libs/axe-core/4.10.2/axe.min.js").read().decode()
 

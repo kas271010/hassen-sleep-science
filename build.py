@@ -14,7 +14,7 @@ ICON_CHECK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-
 ICON_MENU = '<svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>'
 
 NAV = [("cpap-users.html", "For CPAP users"), ("professionals.html", "For professionals"),
-       ("better-sleep.html", "Sleep map"), ("about.html", "About"), ("pricing.html", "Pricing"), ("contact.html", "Contact")]
+       ("better-sleep.html", "Sleep map"), ("about.html", "About"), ("contact.html", "Contact")]
 
 # Simple line icons for the map stops and benefit tiles (stroke inherits currentColor)
 def ico(paths):
@@ -70,7 +70,7 @@ def road_svg(stops):
     d += f" L {xe} {ye+40} C {xe} {ye+170} 360 {ye+110} 360 {H-78}"
     short_title = {5: "Get your CPAP", 6: "Get coaching", 9: "A better night's sleep"}
     short_sub = {1: "Snoring? Tired? Tell your doctor", 2: "One night at home, small device", 3: "We go over it in plain words",
-                 4: "I write it myself", 5: "from your supply company (DME)", 6: "I watch your nightly data",
+                 4: "I write it myself", 5: "from your supply company (DME)", 6: "I review your nightly data",
                  7: "Pressure, humidity, ramp, mask", 8: "Until we get it right", 9: "Congratulations. You made it."}
     out = [f'<svg class="infographic road" viewBox="0 0 {W} {H}" role="img" aria-labelledby="road-t road-d" xmlns="http://www.w3.org/2000/svg">',
            '<title id="road-t">The map to a better night\'s sleep: nine stops along a winding road</title>',
@@ -222,7 +222,7 @@ MAP_STOPS = [
     (3, "dx", "Diagnosis", "The test shows whether you have sleep apnea and how much. We go over it together in plain words.", True, None),
     (4, "rx", "Get your prescription", "As your physician I write the CPAP prescription: the pressure, the type of machine, and the mask.", True, None),
     (5, "dme", "Get your CPAP from your supply company", "Your DME company delivers the machine, mask, and supplies, usually through your insurance.", False, "Your DME company"),
-    (6, "monitor", "Get the coaching you need", "I watch your nightly use data as it comes in. Most modern machines send it to the network every morning. We talk about what it shows.", True, None),
+    (6, "monitor", "Get the coaching you need", "I review your nightly use data as it comes in. Most modern machines send it over the internet every morning. If I see things are not going in the right direction, I may call you before you do to discuss changes.", True, None),
     (7, "adjust", "Adjust", "Pressure, humidity, ramp, mask. I make the changes myself, then we see what the next nights say.", True, None),
     (8, "repeat", "Sleep, sleep, repeat", "Until we get it right. Most people need two or three rounds. That is normal, and it is what I'm here for.", True, None),
     (9, "sun", "Congratulations. A better night's sleep.", "You wake up rested. Your bed partner sleeps too. Now we keep it that way.", True, None),
@@ -315,7 +315,6 @@ FOOTER = f"""</main>
           <li><a href="professionals.html">For professionals</a></li>
           <li><a href="better-sleep.html">Your sleep map</a></li>
           <li><a href="about.html">About Dr. Hassen</a></li>
-          <li><a href="pricing.html">Pricing</a></li>
           <li><a href="contact.html">Contact</a></li>
         </ul>
       </div>
@@ -403,7 +402,7 @@ PAGES = {}
 
 PAGES["index.html"] = dict(
     title="The CPAP Doctor | Dr. Kasim Hassen, Michigan telehealth CPAP care",
-    desc="Michigan-licensed physician and respiratory therapist who fixes CPAP problems by video or phone. Prescriptions, settings, masks, and monthly follow-up. $89 a month.",
+    desc="Michigan-licensed physician and respiratory therapist who fixes CPAP problems by video or phone. Prescriptions, settings, masks, and monthly follow-up.",
     body=f"""
 <section class="hero">
   <div class="wrap hero-grid">
@@ -424,100 +423,6 @@ PAGES["index.html"] = dict(
     <div class="portrait"><img src="assets/dr-hassen.jpg" width="800" height="1000" alt="Dr. Kasim Hassen in a white coat with a stethoscope" fetchpriority="high"></div>
   </div>
 </section>
-
-<section class="section alt">
-  <div class="wrap">
-    <h2>Which one are you?</h2>
-    <div class="grid two">
-      <a class="door" href="cpap-users.html">
-        <h3>I use a CPAP, or I'm about to</h3>
-        <p>Masks, pressure, dry mouth, feeling tired, or just getting started. I sort it out with you and write the changes myself.</p>
-        <span class="go">See how I help &rarr;</span>
-      </a>
-      <a class="door" href="professionals.html">
-        <h3>I refer patients</h3>
-        <p>DOT medical examiners, nursing facilities, DME companies, and sleep centers. A CPAP physician your patients can reach this week.</p>
-        <span class="go">Referral details &rarr;</span>
-      </a>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="wrap">
-    <h2>How it works</h2>
-    <ol class="steps">
-      <li><span class="num">1</span><h3>Call or send a request</h3><p>Tell me how to reach you. I call you back within one business day and we pick a time.</p></li>
-      <li><span class="num">2</span><h3>We meet by video or phone</h3><p>I look at your machine's data, your mask, and how you actually sleep. Bring your questions.</p></li>
-      <li><span class="num">3</span><h3>I make the changes myself</h3><p>Pressure, settings, mask, prescription, supplies. Then I check on you every month until it feels right.</p></li>
-    </ol>
-  </div>
-</section>
-
-<section class="section alt">
-  <div class="wrap">
-    <h2>Your map to a better night's sleep</h2>
-    <p class="lead">Nine stops, from the first visit to waking up rested. I am with you at seven of them.</p>
-    <ol class="mini-map">
-      {"".join(f'<li><span class="mini-num" aria-hidden="true">{n}</span>{title}</li>' for n,_,title,_,_,_ in MAP_STOPS)}
-    </ol>
-    <div class="btn-row"><a class="btn primary" href="better-sleep.html">See the whole map</a></div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="wrap">
-    <h2>Problems I fix most often</h2>
-    <ul class="chips">
-      <li>Mask leaks and marks</li><li>Dry mouth or nose</li><li>Pressure feels too strong</li><li>Still tired after months</li>
-      <li>The screen says my AHI is high</li><li>Swallowing air</li><li>Can't fall asleep with it on</li><li>New to CPAP and lost</li>
-    </ul>
-  </div>
-</section>
-
-<section class="section alt">
-  <div class="wrap doctor-grid">
-    <img src="assets/dr-hassen-480.jpg" width="480" height="600" alt="Dr. Kasim Hassen in a white coat with a stethoscope">
-    <div>
-      <p class="eyebrow">About your doctor</p>
-      <h2>A respiratory therapist first. A physician second. Both, for you.</h2>
-      <p>I spent more than ten years at the bedside as a respiratory therapist, in intensive care units and in patients' homes, before I became a doctor. That is where I learned what actually makes CPAP work: the mask, the settings, and someone who listens.</p>
-      <p>Now I hold a full Michigan physician license, so I can write and change your CPAP prescription myself. No waiting on another office.</p>
-      <ul class="checklist">
-        {check_item("Doctor of Medicine, Michigan Physician License #4301518506")}
-        {check_item("Registered Respiratory Therapist, Michigan RCP #4401010875")}
-        {check_item("Published researcher in sleep and respiratory care")}
-      </ul>
-      <p class="mt-0"><a href="about.html">Read more about Dr. Hassen</a></p>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="wrap">
-    <div class="grid two">
-      <div class="price-card">
-        <p class="eyebrow">One simple price</p>
-        <p class="amount">$89 <small>a month</small></p>
-        <ul class="checklist">
-          {check_item("Your first visit is a full evaluation")}
-          {check_item("Prescription and settings changes, written by me")}
-          {check_item("Monthly check-ins on your machine's data")}
-          {check_item("Cancel any time. No contract.")}
-        </ul>
-        <p class="fine">Cash pay. No insurance billing. I can give you a receipt to send to your insurer.</p>
-        <p class="mb-0"><a href="pricing.html">See what's included</a></p>
-      </div>
-      <div>
-        <blockquote>
-          <p>"I'd been ready to throw my CPAP in the closet. Dr. Hassen actually listened to what I was experiencing, adjusted my settings based on my data, and found me a mask that doesn't leak. For the first time in months, I'm sleeping through the night."</p>
-          <cite>A CPAP patient, San Diego</cite>
-        </blockquote>
-      </div>
-    </div>
-  </div>
-</section>
-{CTA_BAND}
 """)
 
 PAGES["cpap-users.html"] = dict(
@@ -577,7 +482,7 @@ PAGES["cpap-users.html"] = dict(
     {faq([
         ("Do I need a referral from my doctor?", "No. You can call me directly. If you want, I will send a note to your regular doctor after we meet."),
         ("Can you really change my prescription?", "Yes. I hold a full Michigan physician license. I write and change CPAP and BiPAP prescriptions myself and send them to your supply company."),
-        ("Do you take insurance?", "No. The price is $89 a month, paid by card. I can give you a receipt to send to your insurer for your own claim. Your CPAP machine and supplies still go through your supply company and your insurance as usual."),
+        ("Do you take insurance?", "No. I am a cash-pay practice, and we go over the cost on our first call before anything is charged. I can give you a receipt to send to your insurer for your own claim. Your CPAP machine and supplies still go through your supply company and your insurance as usual."),
         ("Will you work with my supply company?", "Yes. I send them the orders and the notes they need, including the follow-up visit paperwork many insurers ask for in the first 90 days."),
         ("I'm not good with computers. Can we do this by phone?", "Yes. Video is nice because I can see your mask, but a phone call works. I will walk you through anything technical, one step at a time."),
         ("What if I need something you don't do?", "If you need an in-lab sleep study, a specialist, or a different kind of machine, I will tell you plainly and point you to the right place."),
@@ -636,7 +541,7 @@ PAGES["professionals.html"] = dict(
       {check_item("The 31-to-90-day re-evaluation note with objective adherence data")}
       {check_item("A monthly adherence summary, if you want one")}
     </ul>
-    <p>Telehealth for patients located in Michigan. Cash-pay for the patient at $89 a month, or ask me about facility arrangements.</p>
+    <p>Telehealth for patients located in Michigan. Cash-pay for the patient, or ask me about facility arrangements.</p>
   </div>
 </section>
 
@@ -748,59 +653,6 @@ PAGES["about.html"] = dict(
       <div class="card"><h3>Guided by the science</h3><p>Every change is grounded in how your airway works and what your data shows.</p></div>
       <div class="card"><h3>A real partnership</h3><p>Your experience matters. I listen first, then we solve it together.</p></div>
     </div>
-  </div>
-</section>
-{CTA_BAND}
-""")
-
-PAGES["pricing.html"] = dict(
-    title="Pricing | The CPAP Doctor",
-    desc="One simple price for CPAP management by telehealth: $89 a month, everything included, cancel any time.",
-    body=f"""
-<section class="hero">
-  <div class="wrap">
-    <p class="eyebrow">Pricing</p>
-    <h1>One simple price. No surprises.</h1>
-    <p class="lead">Every visit is one-on-one with me. No call center, no script, no runaround.</p>
-  </div>
-</section>
-
-<section class="section alt">
-  <div class="wrap grid two">
-    <div class="price-card">
-      <p class="eyebrow">CPAP care</p>
-      <p class="amount">$89 <small>a month</small></p>
-      <ul class="checklist">
-        {check_item("A full first evaluation, 45 to 60 minutes, by video or phone")}
-        {check_item("Review of your machine's data every month")}
-        {check_item("Pressure, comfort, and mask changes, made by me")}
-        {check_item("Prescription updates and supply orders sent to your supplier")}
-        {check_item("A monthly check-in, and a way to reach me between visits")}
-        {check_item("Cancel any time. No contract.")}
-      </ul>
-      <p class="fine">Paid by card after your first visit. Requesting a visit costs nothing.</p>
-      <div class="btn-row"><a class="btn primary" href="contact.html">Request a visit</a></div>
-    </div>
-    <div>
-      <h2>What's not included</h2>
-      <ul>
-        <li><strong>The machine and supplies.</strong> Those still come from your supply company or any retailer, using the prescription I write. Your insurance handles them as usual.</li>
-        <li><strong>The sleep study itself.</strong> If you need one, I can arrange a home test. It is billed separately, usually around $190 cash.</li>
-        <li><strong>Insurance billing.</strong> I don't bill insurers. I can give you a receipt for your own claim.</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="wrap">
-    <h2>Questions about cost</h2>
-    {faq([
-        ("Why a monthly fee instead of one visit?", "Because CPAP problems are rarely fixed in one sitting. The first change usually helps. The second and third are what make it stick. Monthly care lets me follow your data and adjust without you starting over each time."),
-        ("What if I only want one visit?", "Call me and tell me that. We will talk about what makes sense for you."),
-        ("Can I stop whenever I want?", "Yes. There is no contract. Tell me and the monthly charge stops."),
-        ("Do I pay before we talk?", "No. Requesting a visit and the first phone call cost nothing. You pay by card after your first full visit."),
-    ])}
   </div>
 </section>
 {CTA_BAND}
