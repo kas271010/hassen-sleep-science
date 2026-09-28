@@ -318,6 +318,13 @@ select { appearance: none; -webkit-appearance: none; background-image: url("data
   .stop:nth-child(even) .stop-num { grid-row: 1; }
 }
 
+/* Infographics (inline SVG) */
+.info-wrap { max-width: 760px; margin: 0 auto; }
+.info-wrap.wide { max-width: 1240px; }
+.infographic { width: 100%; height: auto; display: block; }
+.sun-stacked { display: none; max-width: 640px; margin: 0 auto; }
+@media (max-width: 719px) { .sun-radial { display: none; } .sun-stacked { display: block; } }
+
 /* Compact version on the home page */
 .mini-map { list-style: none; margin: 0 0 8px; padding: 0; display: flex; flex-wrap: wrap; gap: 12px; max-width: none; counter-reset: none; }
 .mini-map li { display: inline-flex; align-items: center; gap: 10px; background: var(--white); border: 2px solid var(--rule); border-radius: 999px; padding: 8px 18px 8px 8px; font-weight: 700; margin: 0; min-height: 52px; }
@@ -350,3 +357,6 @@ select { appearance: none; -webkit-appearance: none; background-image: url("data
   *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
 }
 @media print { .site-header .nav, .call-bar, .btn-row { display: none !important; } body { padding-bottom: 0; } }
+
+/* Road infographic on phones: bigger titles, drop the sub-lines */
+@media (max-width: 719px) { .road .rs { display: none; } .road .rt { font-size: 36px; } .road .rl { font-size: 26px; } }

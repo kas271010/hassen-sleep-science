@@ -45,6 +45,160 @@ I = {
 }
 
 
+def icon_at(key, x, y, size, color):
+    """Place one of the line icons inside a larger SVG."""
+    return f'<g color="{color}">' + I[key].replace('<svg viewBox="0 0 24 24"', f'<svg x="{x}" y="{y}" width="{size}" height="{size}" viewBox="0 0 24 24"', 1) + '</g>'
+
+
+NAVY, TEAL, AMBER, INK, INK2, PAPER2, WHITE, SUCCESS, ROAD = "#14324F", "#0E5E6F", "#F4B860", "#172033", "#3B4453", "#F3EEE4", "#FFFFFF", "#166534", "#2F3A4A"
+FONT = "Atkinson Hyperlegible Next, Atkinson Hyperlegible, Arial, sans-serif"
+SERIF = "Source Serif 4, Georgia, serif"
+
+
+def road_svg(stops):
+    """The map as a winding road, portrait, 720 units wide. Stops alternate sides; the road ends in a sunrise."""
+    import math
+    W, top, gap = 720, 150, 180
+    xs = [200, 520]
+    pts = [(xs[i % 2], top + i * gap) for i in range(len(stops))]
+    xe, ye = pts[-1]
+    H = ye + 300
+    d = f"M {pts[0][0]} 40 L {pts[0][0]} {pts[0][1]}"
+    for (x0, y0), (x1, y1) in zip(pts, pts[1:]):
+        ym = (y0 + y1) / 2
+        d += f" C {x0} {ym} {x1} {ym} {x1} {y1}"
+    d += f" L {xe} {ye+40} C {xe} {ye+170} 360 {ye+110} 360 {H-78}"
+    short_title = {5: "Get your CPAP", 6: "Get coaching", 9: "A better night's sleep"}
+    short_sub = {1: "Snoring? Tired? Tell your doctor", 2: "One night at home, small device", 3: "We go over it in plain words",
+                 4: "I write it myself", 5: "from your supply company (DME)", 6: "I watch your nightly data",
+                 7: "Pressure, humidity, ramp, mask", 8: "Until we get it right", 9: "Congratulations. You made it."}
+    out = [f'<svg class="infographic road" viewBox="0 0 {W} {H}" role="img" aria-labelledby="road-t road-d" xmlns="http://www.w3.org/2000/svg">',
+           '<title id="road-t">The map to a better night\'s sleep: nine stops along a winding road</title>',
+           f'<desc id="road-d">{" ".join(f"Stop {n}: {t}." for n,_,t,_,_,_ in stops)} Navy stops are with Dr. Hassen; gray stops are with a partner. The road ends at a sunrise.</desc>',
+           f'<style>.rt{{font-family:{FONT};font-weight:700;font-size:30px;fill:{INK}}}.rs{{font-family:{FONT};font-size:23px;fill:{INK2}}}.rn{{font-family:{SERIF};font-weight:700;font-size:34px;fill:{WHITE}}}.rl{{font-family:{FONT};font-weight:700;font-size:22px;fill:{INK2}}}.rf{{font-family:{SERIF};font-weight:700;font-size:30px;fill:{NAVY}}}</style>',
+           # legend, top right, out of the road's way
+           f'<circle cx="470" cy="34" r="12" fill="{NAVY}"/><text x="490" y="42" class="rl">With Dr. Hassen</text>',
+           f'<circle cx="470" cy="70" r="12" fill="#9AA3B2"/><text x="490" y="78" class="rl">With a partner</text>',
+           # sunrise glow behind the road end
+           f'<g transform="translate(360 {H-54})"><path d="M -170 0 A 170 170 0 0 1 170 0 Z" fill="{AMBER}" opacity="0.3"/>'
+           f'<path d="M -110 0 A 110 110 0 0 1 110 0 Z" fill="{AMBER}"/>'
+           + "".join(f'<line x1="{140*math.cos(a):.0f}" y1="{-140*math.sin(a):.0f}" x2="{190*math.cos(a):.0f}" y2="{-190*math.sin(a):.0f}" stroke="{AMBER}" stroke-width="9" stroke-linecap="round"/>' for a in [0.3, 0.75, 1.2, 1.94, 2.39, 2.84])
+           + '</g>',
+           # road: asphalt, dashed centre line
+           f'<path d="{d}" fill="none" stroke="{ROAD}" stroke-width="46" stroke-linecap="round"/>',
+           f'<path d="{d}" fill="none" stroke="{AMBER}" stroke-width="5" stroke-dasharray="26 22" stroke-linecap="round"/>',
+           f'<rect x="150" y="{H-58}" width="420" height="10" rx="5" fill="{ROAD}"/>',
+           f'<text x="360" y="{H-10}" text-anchor="middle" class="rf">Better sleep</text>',
+           # start flag
+           f'<line x1="{pts[0][0]+34}" y1="44" x2="{pts[0][0]+34}" y2="104" stroke="{INK}" stroke-width="5"/>',
+           f'<path d="M {pts[0][0]+37} 46 h 72 l -16 17 16 17 h -72 z" fill="{SUCCESS}"/>',
+           f'<text x="{pts[0][0]+118}" y="76" class="rl">Start here</text>']
+    for (n, key, title, text, with_me, partner), (x, y) in zip(stops, pts):
+        left = x == xs[0]
+        fill = NAVY if with_me else "#9AA3B2"
+        ttl = short_title.get(n, title); sub = short_sub.get(n, "")
+        out.append(f'<circle cx="{x}" cy="{y}" r="40" fill="{fill}" stroke="{WHITE}" stroke-width="6"/>')
+        out.append(f'<text x="{x}" y="{y+12}" text-anchor="middle" class="rn">{n}</text>')
+        if left:
+            out.append(icon_at(key, x + 62, y - 24, 46, TEAL))
+            out.append(f'<text x="{x+122}" y="{y+2}" class="rt">{ttl}</text>')
+            out.append(f'<text x="{x+122}" y="{y+34}" class="rs">{sub}</text>')
+        else:
+            out.append(icon_at(key, x - 108, y - 24, 46, TEAL))
+            out.append(f'<text x="{x-122}" y="{y+2}" text-anchor="end" class="rt">{ttl}</text>')
+            out.append(f'<text x="{x-122}" y="{y+34}" text-anchor="end" class="rs">{sub}</text>')
+    out.append('</svg>')
+    return "\n".join(out)
+
+
+BENEFIT_STATS = [
+    ("car",     "70%",       ["fewer car crashes", "among regular users"]),
+    ("bp",      "2–7",       ["points lower", "blood pressure"]),
+    ("night",   "1 fewer",   ["bathroom trip", "per night, on average"]),
+    ("mood",    "6 months",  ["or less to a", "measurable lift in mood"]),
+    ("energy",  "3 points",  ["less sleepy on the", "daytime sleepiness scale"]),
+    ("partner", "Quieter",   ["nights: snoring drops,", "your partner sleeps too"]),
+    ("brain",   "Clearer",   ["thinking, memory", "and focus"]),
+    ("head",    "Fewer",     ["morning", "headaches"]),
+    ("rhythm",  "Steadier",  ["heart rhythm for", "regular users with AFib"]),
+    ("shield",  "Better",    ["quality of life,", "the reason doctors prescribe it"]),
+]
+
+
+def sun_core(cx, cy, r):
+    import math
+    rays = "".join(f'<line x1="{cx+ (r+18)*math.cos(a):.0f}" y1="{cy+(r+18)*math.sin(a):.0f}" x2="{cx+(r+48)*math.cos(a):.0f}" y2="{cy+(r+48)*math.sin(a):.0f}" stroke="{AMBER}" stroke-width="9" stroke-linecap="round"/>'
+                   for a in [i * math.pi / 8 for i in range(16)])
+    return (f'<circle cx="{cx}" cy="{cy}" r="{r+70}" fill="{AMBER}" opacity="0.18"/>{rays}'
+            f'<circle cx="{cx}" cy="{cy}" r="{r}" fill="{AMBER}"/>'
+            f'<text x="{cx}" y="{cy-22}" text-anchor="middle" class="st">A better</text>'
+            f'<text x="{cx}" y="{cy+18}" text-anchor="middle" class="st">night\'s sleep</text>'
+            f'<text x="{cx}" y="{cy+56}" text-anchor="middle" class="ss">means…</text>')
+
+
+SUN_STYLE = (f'<style>.st{{font-family:{SERIF};font-weight:700;font-size:38px;fill:{NAVY}}}.ss{{font-family:{FONT};font-weight:700;font-size:24px;fill:{NAVY}}}'
+             f'.bn{{font-family:{SERIF};font-weight:700;font-size:44px;fill:{NAVY}}}.bl{{font-family:{FONT};font-size:24px;fill:{INK2}}}</style>')
+
+
+def sun_svg_radial():
+    """Wide screens: the sun in the middle, ten benefits around it."""
+    import math
+    W, H, cx, cy, R = 1240, 1000, 620, 500, 150
+    out = [f'<svg class="infographic sun-radial" viewBox="0 0 {W} {H}" role="img" aria-labelledby="sunr-t sunr-d" xmlns="http://www.w3.org/2000/svg">',
+           '<title id="sunr-t">What a better night\'s sleep means: ten benefits around a rising sun</title>',
+           f'<desc id="sunr-d">{" ".join(s + " " + " ".join(l) + "." for _, s, l in BENEFIT_STATS)}</desc>', SUN_STYLE]
+    n = len(BENEFIT_STATS)
+    for i, (key, stat, lines) in enumerate(BENEFIT_STATS):
+        a = -math.pi / 2 + i * 2 * math.pi / n
+        ix, iy = cx + 330 * math.cos(a), cy + 330 * math.sin(a)
+        out.append(f'<line x1="{cx + (R+20)*math.cos(a):.0f}" y1="{cy+(R+20)*math.sin(a):.0f}" x2="{ix:.0f}" y2="{iy:.0f}" stroke="{AMBER}" stroke-width="6" stroke-dasharray="2 12" stroke-linecap="round"/>')
+        out.append(f'<circle cx="{ix:.0f}" cy="{iy:.0f}" r="38" fill="{WHITE}" stroke="{TEAL}" stroke-width="4"/>')
+        out.append(icon_at(key, f"{ix-22:.0f}", f"{iy-22:.0f}", 44, TEAL))
+        c = math.cos(a)
+        if abs(c) < 0.2:  # top or bottom: centre the text above/below
+            anchor, tx = "middle", ix
+            ty = iy - 60 if math.sin(a) < 0 else iy + 96
+            out.append(f'<text x="{tx:.0f}" y="{ty:.0f}" text-anchor="{anchor}" class="bn">{stat}</text>')
+            out.append(f'<text x="{tx:.0f}" y="{ty+30:.0f}" text-anchor="{anchor}" class="bl">{lines[0]} {lines[1]}</text>')
+        else:
+            anchor = "start" if c > 0 else "end"
+            tx = ix + (56 if c > 0 else -56)
+            out.append(f'<text x="{tx:.0f}" y="{iy-4:.0f}" text-anchor="{anchor}" class="bn">{stat}</text>')
+            out.append(f'<text x="{tx:.0f}" y="{iy+26:.0f}" text-anchor="{anchor}" class="bl">{lines[0]}</text>')
+            out.append(f'<text x="{tx:.0f}" y="{iy+54:.0f}" text-anchor="{anchor}" class="bl">{lines[1]}</text>')
+    out.append(sun_core(cx, cy, R))
+    out.append('</svg>')
+    return "\n".join(out)
+
+
+def sun_svg_stacked():
+    """Phones: the sun on top, a sunbeam down the middle, benefits alternating left and right."""
+    W, top, gap = 720, 200, 168
+    n = len(BENEFIT_STATS)
+    H = top + 190 + n * gap
+    cx = 360
+    out = [f'<svg class="infographic sun-stacked" viewBox="0 0 {W} {H}" role="img" aria-labelledby="suns-t suns-d" xmlns="http://www.w3.org/2000/svg">',
+           '<title id="suns-t">What a better night\'s sleep means: ten benefits along a sunbeam</title>',
+           f'<desc id="suns-d">{" ".join(s + " " + " ".join(l) + "." for _, s, l in BENEFIT_STATS)}</desc>', SUN_STYLE.replace("font-size:44px","font-size:50px").replace("font-size:24px;fill:"+INK2,"font-size:29px;fill:"+INK2),
+           f'<rect x="{cx-8}" y="{top+150}" width="16" height="{H-top-190}" fill="{AMBER}" opacity="0.6"/>',
+           sun_core(cx, top, 130)]
+    for i, (key, stat, lines) in enumerate(BENEFIT_STATS):
+        y = top + 240 + i * gap
+        left = i % 2 == 0
+        out.append(f'<circle cx="{cx}" cy="{y}" r="36" fill="{WHITE}" stroke="{TEAL}" stroke-width="4"/>')
+        out.append(icon_at(key, cx - 21, y - 21, 42, TEAL))
+        if left:
+            out.append(f'<text x="{cx-56}" y="{y-6}" text-anchor="end" class="bn">{stat}</text>')
+            out.append(f'<text x="{cx-56}" y="{y+24}" text-anchor="end" class="bl">{lines[0]}</text>')
+            out.append(f'<text x="{cx-56}" y="{y+52}" text-anchor="end" class="bl">{lines[1]}</text>')
+        else:
+            out.append(f'<text x="{cx+56}" y="{y-6}" class="bn">{stat}</text>')
+            out.append(f'<text x="{cx+56}" y="{y+24}" class="bl">{lines[0]}</text>')
+            out.append(f'<text x="{cx+56}" y="{y+52}" class="bl">{lines[1]}</text>')
+    out.append('</svg>')
+    return "\n".join(out)
+
+
 def map_stop(n, key, title, text, with_me=True, partner=None):
     tag = '<span class="stop-tag">The CPAP Doctor is with you here</span>' if with_me else f'<span class="stop-tag partner">{partner}</span>'
     return f"""<li class="stop">
@@ -514,18 +668,32 @@ PAGES["better-sleep.html"] = dict(
 
 <section class="section alt">
   <div class="wrap">
-    <h2 class="visually-hidden">The nine stops</h2>
+    <h2 class="visually-hidden">The map</h2>
+    <div class="info-wrap">{road_svg(MAP_STOPS)}</div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <h2>Each stop, in detail</h2>
     <ol class="map">
       {"".join(map_stop(*s) for s in MAP_STOPS)}
     </ol>
   </div>
 </section>
 
-<section class="section">
+<section class="section alt">
   <div class="wrap">
     <p class="eyebrow">What you get at the end</p>
     <h2>What does a better night's sleep mean?</h2>
-    <p class="lead">These are the benefits studies have found when people with sleep apnea use CPAP regularly. Results differ from person to person. Using the machine most of the night, most nights, is what makes them show up.</p>
+    <p class="lead">What studies have found when people with sleep apnea use CPAP regularly. Results differ from person to person. Using the machine most of the night, most nights, is what makes them show up.</p>
+    <div class="info-wrap wide">{sun_svg_radial()}{sun_svg_stacked()}</div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <h2>The benefits, in detail</h2>
 
     <h3 class="tier">Well proven</h3>
     <ul class="benefits">
