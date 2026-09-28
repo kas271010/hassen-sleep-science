@@ -69,7 +69,7 @@ def road_svg(stops):
         d += f" C {x0} {ym} {x1} {ym} {x1} {y1}"
     d += f" L {xe} {ye+40} C {xe} {ye+170} 360 {ye+110} 360 {H-78}"
     short_title = {5: "Get your CPAP", 6: "Get coaching", 9: "A better night's sleep"}
-    short_sub = {1: "Snoring? Tired? Tell your doctor", 2: "One night at home, small device", 3: "We go over it in plain words",
+    short_sub = {1: "Tired? Snoring? Gasping for air?", 2: "One night at home, small device", 3: "We go over it in plain words",
                  4: "I write it myself", 5: "from your supply company (DME)", 6: "I review your nightly data",
                  7: "Pressure, humidity, ramp, mask", 8: "Until we get it right", 9: "Congratulations. You made it."}
     out = [f'<svg class="infographic road" viewBox="0 0 {W} {H}" role="img" aria-labelledby="road-t road-d" xmlns="http://www.w3.org/2000/svg">',
@@ -217,7 +217,7 @@ def benefit(key, title, text):
 
 
 MAP_STOPS = [
-    (1, "doctor", "Visit your doctor", "Tell your doctor you snore, wake up tired, or stop breathing at night. That doctor can be me.", True, None),
+    (1, "doctor", "Visit your doctor", "Do you feel tired when you wake up, a headache that lingers, problems concentrating? Snoring, drooling, gasping for air? Talk to your doctor. These are signs and symptoms of sleep apnea.", True, None),
     (2, "study", "Get a sleep study", "Usually a one-night test at home with a small device. I can arrange it and explain the result.", False, "Home sleep test provider"),
     (3, "dx", "Diagnosis", "The test shows whether you have sleep apnea and how much. We go over it together in plain words.", True, None),
     (4, "rx", "Get your prescription", "As your physician I write the CPAP prescription: the pressure, the type of machine, and the mask.", True, None),
