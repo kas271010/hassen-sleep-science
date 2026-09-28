@@ -14,7 +14,82 @@ ICON_CHECK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-
 ICON_MENU = '<svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>'
 
 NAV = [("cpap-users.html", "For CPAP users"), ("professionals.html", "For professionals"),
-       ("about.html", "About"), ("pricing.html", "Pricing"), ("contact.html", "Contact")]
+       ("better-sleep.html", "Sleep map"), ("about.html", "About"), ("pricing.html", "Pricing"), ("contact.html", "Contact")]
+
+# Simple line icons for the map stops and benefit tiles (stroke inherits currentColor)
+def ico(paths):
+    return f'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">{paths}</svg>'
+
+I = {
+    "doctor":  ico('<path d="M9 3v4a3 3 0 0 0 6 0V3"/><path d="M6 7v3a6 6 0 0 0 12 0V7"/><circle cx="18" cy="17" r="3"/><path d="M12 16v1a3 3 0 0 0 3 3"/>'),
+    "study":   ico('<path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/><path d="M3 20h8"/>'),
+    "dx":      ico('<rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 3h6v3H9z"/><path d="M9 12h6M9 16h4"/>'),
+    "rx":      ico('<path d="M6 3h6a4 4 0 0 1 0 8H6z"/><path d="M6 3v18"/><path d="M12 11l7 10"/><path d="M19 11l-7 10"/>'),
+    "dme":     ico('<path d="M3 7h11v10H3z"/><path d="M14 10h4l3 3v4h-7z"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/>'),
+    "monitor": ico('<path d="M2 9a14 14 0 0 1 20 0"/><path d="M6 13a9 9 0 0 1 12 0"/><path d="M9.5 16.5a4 4 0 0 1 5 0"/><circle cx="12" cy="20" r="1"/>'),
+    "adjust":  ico('<path d="M4 6h16M4 12h16M4 18h16"/><circle cx="9" cy="6" r="2" fill="currentColor"/><circle cx="15" cy="12" r="2" fill="currentColor"/><circle cx="8" cy="18" r="2" fill="currentColor"/>'),
+    "repeat":  ico('<path d="M17 2l4 4-4 4"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><path d="M7 22l-4-4 4-4"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/>'),
+    "sun":     ico('<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>'),
+    "energy":  ico('<path d="M13 2L4 14h7l-1 8 9-12h-7z"/>'),
+    "heart":   ico('<path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8z"/>'),
+    "car":     ico('<path d="M5 11l1.5-4.5A2 2 0 0 1 8.4 5h7.2a2 2 0 0 1 1.9 1.5L19 11"/><path d="M3 11h18v6H3z"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/>'),
+    "mood":    ico('<circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><path d="M9 9h.01M15 9h.01"/>'),
+    "brain":   ico('<path d="M9 4a3 3 0 0 0-3 3 3 3 0 0 0-2 5 3 3 0 0 0 2 5 3 3 0 0 0 3 3h1V4z"/><path d="M15 4a3 3 0 0 1 3 3 3 3 0 0 1 2 5 3 3 0 0 1-2 5 3 3 0 0 1-3 3h-1V4z"/>'),
+    "bp":      ico('<path d="M3 12h4l2-5 4 10 2-5h6"/>'),
+    "partner": ico('<path d="M3 18v-6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v6"/><path d="M3 18h18"/><path d="M5 10V7a2 2 0 0 1 2-2h4v5"/>'),
+    "night":   ico('<path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9z"/><path d="M5 20h6"/>'),
+    "head":    ico('<circle cx="12" cy="8" r="5"/><path d="M12 13v8"/><path d="M8 17h8"/>'),
+    "rhythm":  ico('<path d="M2 12h4l2-4 3 8 3-10 2 6h6"/>'),
+    "reflux":  ico('<path d="M12 21V9"/><path d="M8 13l4-4 4 4"/><path d="M5 21h14"/>'),
+    "shield":  ico('<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>'),
+}
+
+
+def map_stop(n, key, title, text, with_me=True, partner=None):
+    tag = '<span class="stop-tag">The CPAP Doctor is with you here</span>' if with_me else f'<span class="stop-tag partner">{partner}</span>'
+    return f"""<li class="stop">
+  <div class="stop-num" aria-hidden="true">{n}</div>
+  <div class="stop-card">
+    <div class="stop-icon">{I[key]}</div>
+    <h3><span class="visually-hidden">Step {n}: </span>{title}</h3>
+    <p>{text}</p>
+    {tag}
+  </div>
+</li>"""
+
+
+def benefit(key, title, text):
+    return f'<li class="benefit"><div class="benefit-icon">{I[key]}</div><h3>{title}</h3><p>{text}</p></li>'
+
+
+MAP_STOPS = [
+    (1, "doctor", "Visit your doctor", "Tell your doctor you snore, wake up tired, or stop breathing at night. That doctor can be me.", True, None),
+    (2, "study", "Get a sleep study", "Usually a one-night test at home with a small device. I can arrange it and explain the result.", False, "Home sleep test provider"),
+    (3, "dx", "Diagnosis", "The test shows whether you have sleep apnea and how much. We go over it together in plain words.", True, None),
+    (4, "rx", "Get your prescription", "As your physician I write the CPAP prescription: the pressure, the type of machine, and the mask.", True, None),
+    (5, "dme", "Get your CPAP from your supply company", "Your DME company delivers the machine, mask, and supplies, usually through your insurance.", False, "Your DME company"),
+    (6, "monitor", "Get the coaching you need", "I watch your nightly use data as it comes in. Most modern machines send it to the network every morning. We talk about what it shows.", True, None),
+    (7, "adjust", "Adjust", "Pressure, humidity, ramp, mask. I make the changes myself, then we see what the next nights say.", True, None),
+    (8, "repeat", "Sleep, sleep, repeat", "Until we get it right. Most people need two or three rounds. That is normal, and it is what I'm here for.", True, None),
+    (9, "sun", "Congratulations. A better night's sleep.", "You wake up rested. Your bed partner sleeps too. Now we keep it that way.", True, None),
+]
+
+BENEFITS_PROVEN = [
+    ("energy", "Less daytime sleepiness", "The best-proven benefit. People stay awake through the afternoon, the TV, and the drive home."),
+    ("mood", "Better mood", "Depression scores fell within six months in a large trial of people with heart disease who used CPAP."),
+    ("partner", "Quieter nights for your partner", "Snoring drops sharply. Many couples get back into the same bedroom."),
+    ("bp", "Lower blood pressure", "A modest drop on average, and larger for people whose pressure was hard to control."),
+    ("car", "Safer driving", "In studies of regular users, car crashes fell by about two thirds."),
+    ("shield", "A better quality of life", "Sleep-related quality of life improves. This is one of the reasons doctors prescribe it."),
+]
+BENEFITS_LIKELY = [
+    ("night", "Fewer bathroom trips at night", "Untreated apnea makes the body shed fluid at night. Treatment often cuts the trips."),
+    ("head", "Fewer morning headaches", "Low oxygen overnight is a common cause. Steady breathing usually ends them."),
+    ("brain", "Clearer thinking", "Concentration and memory tend to improve, especially when sleepiness was the problem."),
+    ("rhythm", "A steadier heart rhythm", "In people with atrial fibrillation who use CPAP regularly, the rhythm problem comes back less often."),
+    ("reflux", "Less nighttime heartburn", "Reflux at night improves for many people once the airway stays open."),
+    ("heart", "Lower heart risk, for regular users", "Trials are not settled. Studies of people who use CPAP most of the night point to lower risk. Using it matters."),
+]
 
 
 def head(title, desc, path):
@@ -84,6 +159,7 @@ FOOTER = f"""</main>
         <ul>
           <li><a href="cpap-users.html">For CPAP users</a></li>
           <li><a href="professionals.html">For professionals</a></li>
+          <li><a href="better-sleep.html">Your sleep map</a></li>
           <li><a href="about.html">About Dr. Hassen</a></li>
           <li><a href="pricing.html">Pricing</a></li>
           <li><a href="contact.html">Contact</a></li>
@@ -191,7 +267,7 @@ PAGES["index.html"] = dict(
         <li>{ICON_CHECK}3,200+ CPAP patients helped</li>
       </ul>
     </div>
-    <div class="portrait"><img src="assets/dr-hassen.jpg" width="800" height="1000" alt="Dr. Kasim Hassen, smiling, in a navy suit and blue tie" fetchpriority="high"></div>
+    <div class="portrait"><img src="assets/dr-hassen.jpg" width="800" height="1000" alt="Dr. Kasim Hassen in a white coat with a stethoscope" fetchpriority="high"></div>
   </div>
 </section>
 
@@ -226,6 +302,17 @@ PAGES["index.html"] = dict(
 
 <section class="section alt">
   <div class="wrap">
+    <h2>Your map to a better night's sleep</h2>
+    <p class="lead">Nine stops, from the first visit to waking up rested. I am with you at seven of them.</p>
+    <ol class="mini-map">
+      {"".join(f'<li><span class="mini-num" aria-hidden="true">{n}</span>{title}</li>' for n,_,title,_,_,_ in MAP_STOPS)}
+    </ol>
+    <div class="btn-row"><a class="btn primary" href="better-sleep.html">See the whole map</a></div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
     <h2>Problems I fix most often</h2>
     <ul class="chips">
       <li>Mask leaks and marks</li><li>Dry mouth or nose</li><li>Pressure feels too strong</li><li>Still tired after months</li>
@@ -234,9 +321,9 @@ PAGES["index.html"] = dict(
   </div>
 </section>
 
-<section class="section">
+<section class="section alt">
   <div class="wrap doctor-grid">
-    <img src="assets/dr-hassen-480.jpg" width="480" height="600" alt="Dr. Kasim Hassen">
+    <img src="assets/dr-hassen-480.jpg" width="480" height="600" alt="Dr. Kasim Hassen in a white coat with a stethoscope">
     <div>
       <p class="eyebrow">About your doctor</p>
       <h2>A respiratory therapist first. A physician second. Both, for you.</h2>
@@ -252,7 +339,7 @@ PAGES["index.html"] = dict(
   </div>
 </section>
 
-<section class="section alt">
+<section class="section">
   <div class="wrap">
     <div class="grid two">
       <div class="price-card">
@@ -409,13 +496,59 @@ PAGES["professionals.html"] = dict(
 {CTA_BAND}
 """)
 
+PAGES["better-sleep.html"] = dict(
+    title="Your map to a better night's sleep | The CPAP Doctor",
+    desc="The nine stops from your first doctor visit to waking up rested, and what a better night's sleep does for your body, your mood, and your driving.",
+    body=f"""
+<section class="hero">
+  <div class="wrap">
+    <p class="eyebrow">The map</p>
+    <h1>Your map to a better night's sleep.</h1>
+    <p class="lead">Nine stops. Some take a week, some take a night. I am with you at seven of them, and I stay until we get it right.</p>
+    <div class="btn-row">
+      <a class="btn primary" href="contact.html">Start at stop 1</a>
+      <a class="btn secondary" href="{PHONE_TEL}">{ICON_PHONE}Call {PHONE}</a>
+    </div>
+  </div>
+</section>
+
+<section class="section alt">
+  <div class="wrap">
+    <h2 class="visually-hidden">The nine stops</h2>
+    <ol class="map">
+      {"".join(map_stop(*s) for s in MAP_STOPS)}
+    </ol>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <p class="eyebrow">What you get at the end</p>
+    <h2>What does a better night's sleep mean?</h2>
+    <p class="lead">These are the benefits studies have found when people with sleep apnea use CPAP regularly. Results differ from person to person. Using the machine most of the night, most nights, is what makes them show up.</p>
+
+    <h3 class="tier">Well proven</h3>
+    <ul class="benefits">
+      {"".join(benefit(*b) for b in BENEFITS_PROVEN)}
+    </ul>
+
+    <h3 class="tier">Likely, especially for regular users</h3>
+    <ul class="benefits">
+      {"".join(benefit(*b) for b in BENEFITS_LIKELY)}
+    </ul>
+    <p class="muted" style="font-size:1rem">Sources: American Academy of Sleep Medicine clinical practice guideline on PAP therapy (2019); the SAVE trial, New England Journal of Medicine (2016); meta-analysis of crash risk before and after CPAP, SLEEP (2010); reviews of CPAP and atrial fibrillation, blood pressure, and nocturia. Ask me and I will walk you through any of them.</p>
+  </div>
+</section>
+{CTA_BAND}
+""")
+
 PAGES["about.html"] = dict(
     title="About Dr. Kasim Hassen | The CPAP Doctor",
     desc="Dr. Kasim Hassen, MD, RCP. Ten years as a respiratory therapist, then medical school. Michigan-licensed physician who manages CPAP therapy by telehealth.",
     body=f"""
 <section class="hero">
   <div class="wrap doctor-grid">
-    <img src="assets/dr-hassen.jpg" width="800" height="1000" alt="Dr. Kasim Hassen, smiling, in a navy suit and blue tie">
+    <img src="assets/dr-hassen.jpg" width="800" height="1000" alt="Dr. Kasim Hassen in a white coat with a stethoscope">
     <div>
       <p class="eyebrow">About</p>
       <h1>Dr. Kasim Hassen, MD, RCP</h1>
