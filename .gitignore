@@ -4,3 +4,5 @@
 .DS_Store
 
 .playwright-mcp/
+BRIEF_*.md
+__pycache__/

@@ -56,59 +56,72 @@ SERIF = "Source Serif 4, Georgia, serif"
 
 
 def road_svg(stops):
-    """The map as a winding road, portrait, 720 units wide. Stops alternate sides; the road ends in a sunrise."""
+    """The map as a winding road, portrait, 720 units wide. Stops alternate sides; the road ends in a sunrise.
+    Steps Kasim handles show his photo; each step is a button that opens its details card (site.js)."""
     import math
-    W, top, gap = 720, 150, 180
+    W, top, gap = 720, 190, 180
     xs = [200, 520]
     pts = [(xs[i % 2], top + i * gap) for i in range(len(stops))]
     xe, ye = pts[-1]
     H = ye + 300
-    d = f"M {pts[0][0]} 40 L {pts[0][0]} {pts[0][1]}"
+    d = f"M {pts[0][0]} 80 L {pts[0][0]} {pts[0][1]}"
     for (x0, y0), (x1, y1) in zip(pts, pts[1:]):
         ym = (y0 + y1) / 2
         d += f" C {x0} {ym} {x1} {ym} {x1} {y1}"
     d += f" L {xe} {ye+40} C {xe} {ye+170} 360 {ye+110} 360 {H-78}"
-    short_title = {5: "Get your CPAP", 6: "Get coaching", 9: "A better night's sleep"}
+    short_title = {5: "Get your CPAP", 9: "A better night's sleep"}
     short_sub = {1: "Tired? Snoring? Gasping for air?", 2: "One night at home, small device", 3: "We go over it in plain words",
-                 4: "I write it myself, as your physician", 5: "from your supply company (DME)", 6: "I review your data. I may call first.",
+                 4: "I write it myself, as your physician", 5: "from your supply company (DME)", 6: "I fit your mask by video and coach you",
                  7: "Pressure, humidity, ramp, mask", 8: "Until we get it right", 9: "Congratulations. You made it."}
-    out = [f'<svg class="infographic road" viewBox="-60 0 {W+120} {H+50}" role="img" aria-labelledby="road-t road-d" xmlns="http://www.w3.org/2000/svg">',
-           '<title id="road-t">The map to a better night\'s sleep: nine stops along a winding road</title>',
-           f'<desc id="road-d">{" ".join(f"Stop {n}: {t}." for n,_,t,_,_,_ in stops)} Navy stops are with Dr. Hassen; gray stops are with a partner. The road ends at a sunrise.</desc>',
-           f'<style>.rt{{font-family:{FONT};font-weight:700;font-size:30px;fill:{INK}}}.rs{{font-family:{FONT};font-size:21px;fill:{INK2}}}.rn{{font-family:{SERIF};font-weight:700;font-size:34px;fill:{WHITE}}}.rl{{font-family:{FONT};font-weight:700;font-size:22px;fill:{INK2}}}.rf{{font-family:{SERIF};font-weight:700;font-size:30px;fill:{NAVY}}}</style>',
-           # legend, top right, out of the road's way
-           f'<circle cx="470" cy="34" r="12" fill="{NAVY}"/><text x="490" y="42" class="rl">With Dr. Hassen</text>',
-           f'<circle cx="470" cy="70" r="12" fill="#9AA3B2"/><text x="490" y="78" class="rl">With a partner</text>',
-           # sunrise glow behind the road end
-           f'<g transform="translate(360 {H-54})"><path d="M -170 0 A 170 170 0 0 1 170 0 Z" fill="{AMBER}" opacity="0.3"/>'
-           f'<path d="M -110 0 A 110 110 0 0 1 110 0 Z" fill="{AMBER}"/>'
-           + "".join(f'<line x1="{140*math.cos(a):.0f}" y1="{-140*math.sin(a):.0f}" x2="{190*math.cos(a):.0f}" y2="{-190*math.sin(a):.0f}" stroke="{AMBER}" stroke-width="9" stroke-linecap="round"/>' for a in [0.3, 0.75, 1.2, 1.94, 2.39, 2.84])
-           + '</g>',
-           # road: asphalt, dashed centre line
+    out = [f'<svg class="infographic road" viewBox="-110 0 {W+170} {H+50}" role="group" aria-label="The map to a better night\'s sleep. Nine steps; select a step to read about it." xmlns="http://www.w3.org/2000/svg">',
+           '<defs><clipPath id="c40"><circle r="40"/></clipPath><clipPath id="c16"><circle r="16"/></clipPath></defs>',
+           f'<style>.rt{{font-family:{FONT};font-weight:700;font-size:30px;fill:{INK}}}.rs{{font-family:{FONT};font-size:21px;fill:{INK2}}}.rn{{font-family:{SERIF};font-weight:700;font-size:20px;fill:{WHITE}}}.rl{{font-family:{FONT};font-weight:700;font-size:22px;fill:{INK2}}}.rf{{font-family:{SERIF};font-weight:700;font-size:30px;fill:{NAVY}}}.bk{{font-family:{FONT};font-weight:700;font-size:24px;fill:{TEAL}}}</style>',
+           # legend: photo = with Dr. Hassen
+           f'<g aria-hidden="true"><g transform="translate(470 34)"><image href="{PHOTO}" x="-16" y="-16" width="32" height="32" clip-path="url(#c16)"/><circle r="16" fill="none" stroke="{NAVY}" stroke-width="3"/></g><text x="496" y="42" class="rl">With Dr. Hassen</text>',
+           f'<circle cx="470" cy="78" r="12" fill="#9AA3B2"/><text x="496" y="86" class="rl">With a partner</text>',
+           f'<g transform="translate(360 {H-54})"><path d="M -170 0 A 170 170 0 0 1 170 0 Z" fill="{AMBER}" opacity="0.3"/><path d="M -110 0 A 110 110 0 0 1 110 0 Z" fill="{AMBER}"/>'
+           + "".join(f'<line x1="{140*math.cos(a):.0f}" y1="{-140*math.sin(a):.0f}" x2="{190*math.cos(a):.0f}" y2="{-190*math.sin(a):.0f}" stroke="{AMBER}" stroke-width="9" stroke-linecap="round"/>' for a in [0.3, 0.75, 1.2, 1.94, 2.39, 2.84]) + '</g>',
            f'<path d="{d}" fill="none" stroke="{ROAD}" stroke-width="46" stroke-linecap="round"/>',
            f'<path d="{d}" fill="none" stroke="{AMBER}" stroke-width="5" stroke-dasharray="26 22" stroke-linecap="round"/>',
            f'<rect x="150" y="{H-58}" width="420" height="10" rx="5" fill="{ROAD}"/>',
            f'<text x="360" y="{H-10}" text-anchor="middle" class="rf">Better sleep</text>',
-           # start flag
-           f'<line x1="{pts[0][0]+34}" y1="44" x2="{pts[0][0]+34}" y2="104" stroke="{INK}" stroke-width="5"/>',
-           f'<path d="M {pts[0][0]+37} 46 h 72 l -16 17 16 17 h -72 z" fill="{SUCCESS}"/>',
-           f'<text x="{pts[0][0]+118}" y="76" class="rl">Start here</text>']
+           f'<line x1="{pts[0][0]+34}" y1="84" x2="{pts[0][0]+34}" y2="144" stroke="{INK}" stroke-width="5"/>',
+           f'<path d="M {pts[0][0]+37} 86 h 72 l -16 17 16 17 h -72 z" fill="{SUCCESS}"/><text x="{pts[0][0]+118}" y="116" class="rl">Start here</text>']
+    y6, y8 = pts[5][1], pts[7][1]
+    out.append(f'<path d="M -30 {y6-40} h -14 v {y8-y6+80} h 14" fill="none" stroke="{TEAL}" stroke-width="5" stroke-linecap="round"/>')
+    out.append(f'<text transform="translate(-62 {(y6+y8)/2}) rotate(-90)" text-anchor="middle" class="bk">Same doctor · no hand-offs</text></g>')
     for (n, key, title, text, with_me, partner), (x, y) in zip(stops, pts):
         left = x == xs[0]
-        fill = NAVY if with_me else "#9AA3B2"
         ttl = short_title.get(n, title); sub = short_sub.get(n, "")
-        out.append(f'<circle cx="{x}" cy="{y}" r="40" fill="{fill}" stroke="{WHITE}" stroke-width="6"/>')
-        out.append(f'<text x="{x}" y="{y+12}" text-anchor="middle" class="rn">{n}</text>')
+        out.append(f'<g class="mstop" data-n="{n}" tabindex="0" role="button" aria-controls="mdetail" aria-label="Step {n}: {ttl}. Show details">')
+        out.append(f'<rect class="hit" x="{x-60 if left else x-560}" y="{y-58}" width="620" height="116" rx="20"/>')
+        out.append(stop_marker(n, x, y, with_me, 40))
         if left:
             out.append(icon_at(key, x + 62, y - 24, 46, TEAL))
-            out.append(f'<text x="{x+122}" y="{y+2}" class="rt">{ttl}</text>')
-            out.append(f'<text x="{x+122}" y="{y+34}" class="rs">{sub}</text>')
+            out.append(f'<text x="{x+122}" y="{y+2}" class="rt">{ttl}</text><text x="{x+122}" y="{y+34}" class="rs">{sub}</text>')
         else:
             out.append(icon_at(key, x - 108, y - 24, 46, TEAL))
-            out.append(f'<text x="{x-122}" y="{y+2}" text-anchor="end" class="rt">{ttl}</text>')
-            out.append(f'<text x="{x-122}" y="{y+34}" text-anchor="end" class="rs">{sub}</text>')
+            out.append(f'<text x="{x-122}" y="{y+2}" text-anchor="end" class="rt">{ttl}</text><text x="{x-122}" y="{y+34}" text-anchor="end" class="rs">{sub}</text>')
+        out.append('</g>')
     out.append('</svg>')
     return "\n".join(out)
+
+
+PHOTO = "assets/dr-hassen-square.jpg"
+
+
+def stop_marker(n, x, y, with_me, r):
+    """Kasim's photo for his steps (numbered badge), gray dot for partner steps, a sun-gold dot for the finish."""
+    if n == 9:
+        return f'<circle cx="{x}" cy="{y}" r="{r}" fill="{AMBER}" stroke="{WHITE}" stroke-width="6"/><text x="{x}" y="{y+r*0.3:.0f}" text-anchor="middle" style="font-family:{SERIF};font-weight:700;font-size:{r*0.85:.0f}px;fill:{NAVY}">{n}</text>'
+    if with_me:
+        br = r * 0.43
+        return (f'<g transform="translate({x} {y})"><circle r="{r+6}" fill="{WHITE}"/>'
+                f'<image href="{PHOTO}" x="{-r}" y="{-r}" width="{2*r}" height="{2*r}" clip-path="url(#c{r})"/>'
+                f'<circle r="{r}" fill="none" stroke="{NAVY}" stroke-width="{max(3, r//8)}"/>'
+                f'<circle cx="{r*0.75:.0f}" cy="{r*0.75:.0f}" r="{br:.0f}" fill="{NAVY}" stroke="{WHITE}" stroke-width="3"/>'
+                f'<text x="{r*0.75:.0f}" y="{r*0.75+br*0.42:.0f}" text-anchor="middle" style="font-family:{SERIF};font-weight:700;font-size:{br*1.15:.0f}px;fill:{WHITE}">{n}</text></g>')
+    return f'<circle cx="{x}" cy="{y}" r="{r}" fill="#9AA3B2" stroke="{WHITE}" stroke-width="6"/><text x="{x}" y="{y+r*0.3:.0f}" text-anchor="middle" style="font-family:{SERIF};font-weight:700;font-size:{r*0.85:.0f}px;fill:{WHITE}">{n}</text>'
 
 
 def road_svg_phone(stops):
@@ -123,13 +136,12 @@ def road_svg_phone(stops):
         ym = (y0 + y1) / 2
         d += f" C {x0} {ym} {x1} {ym} {x1} {y1}"
     d += f" L {xe} {ye+30} C {xe} {ye+120} 210 {ye+80} 210 {H-70}"
-    short_title = {5: "Get your CPAP", 6: "Get coaching", 9: "A better night's sleep"}
+    short_title = {5: "Get your CPAP", 9: "A better night's sleep"}
     sub = {1: "Tired? Snoring? Gasping?", 2: "One night at home", 3: "Explained in plain words",
-           4: "Written by me", 5: "From your supply company", 6: "I may call you first",
+           4: "Written by me", 5: "From your supply company", 6: "Mask fit by video",
            7: "Pressure, mask, comfort", 8: "Until we get it right", 9: "Congratulations!"}
-    out = [f'<svg class="infographic road-phone" viewBox="0 0 {W} {H}" role="img" aria-labelledby="roadp-t roadp-d" xmlns="http://www.w3.org/2000/svg">',
-           '<title id="roadp-t">The map to a better night\'s sleep: nine stops along a winding road</title>',
-           f'<desc id="roadp-d">{" ".join(f"Stop {n}: {t}." for n,_,t,_,_,_ in stops)} The road ends at a sunrise.</desc>',
+    out = [f'<svg class="infographic road-phone" viewBox="0 0 {W} {H}" role="group" aria-label="The map to a better night\'s sleep. Nine steps; tap a step to read about it." xmlns="http://www.w3.org/2000/svg">',
+           '<defs><clipPath id="c28"><circle r="28"/></clipPath></defs>',
            f'<style>.pt{{font-family:{FONT};font-weight:700;font-size:25px;fill:{INK}}}.ps{{font-family:{FONT};font-size:20px;fill:{INK2}}}.pn{{font-family:{SERIF};font-weight:700;font-size:26px;fill:{WHITE}}}.pf{{font-family:{SERIF};font-weight:700;font-size:26px;fill:{NAVY}}}</style>',
            f'<g transform="translate(210 {H-50})"><path d="M -150 0 A 150 150 0 0 1 150 0 Z" fill="{AMBER}" opacity="0.3"/><path d="M -95 0 A 95 95 0 0 1 95 0 Z" fill="{AMBER}"/>'
            + "".join(f'<line x1="{120*math.cos(a):.0f}" y1="{-120*math.sin(a):.0f}" x2="{160*math.cos(a):.0f}" y2="{-160*math.sin(a):.0f}" stroke="{AMBER}" stroke-width="8" stroke-linecap="round"/>' for a in [0.3, 0.75, 1.2, 1.94, 2.39, 2.84])
@@ -139,11 +151,13 @@ def road_svg_phone(stops):
            f'<rect x="40" y="{H-54}" width="340" height="8" rx="4" fill="{ROAD}"/>',
            f'<text x="210" y="{H-14}" text-anchor="middle" class="pf">Better sleep</text>']
     for (n, key, title, text, with_me, partner), (x, y) in zip(stops, pts):
-        fill = NAVY if with_me else "#9AA3B2"
-        out.append(f'<circle cx="{x}" cy="{y}" r="28" fill="{fill}" stroke="{WHITE}" stroke-width="5"/>')
-        out.append(f'<text x="{x}" y="{y+9}" text-anchor="middle" class="pn">{n}</text>')
-        out.append(f'<text x="150" y="{y-2}" class="pt">{short_title.get(n, title)}</text>')
+        ttl = short_title.get(n, title)
+        out.append(f'<g class="mstop" data-n="{n}" tabindex="0" role="button" aria-controls="mdetail" aria-label="Step {n}: {ttl}. Show details">')
+        out.append(f'<rect class="hit" x="20" y="{y-50}" width="390" height="100" rx="16"/>')
+        out.append(stop_marker(n, x, y, with_me, 28))
+        out.append(f'<text x="150" y="{y-2}" class="pt">{ttl}</text>')
         out.append(f'<text x="150" y="{y+26}" class="ps">{sub[n]}</text>')
+        out.append('</g>')
     out.append('</svg>')
     return "\n".join(out)
 
@@ -286,11 +300,18 @@ MAP_STOPS = [
     (3, "dx", "Diagnosis", "The test shows whether you have sleep apnea and how much. We go over it together in plain words.", True, None),
     (4, "rx", "Get your prescription", "As your physician I write the CPAP prescription: the pressure, the type of machine, and the mask.", True, None),
     (5, "dme", "Get your CPAP from your supply company", "Your DME company delivers the machine, mask, and supplies, usually through your insurance.", False, "Your DME company"),
-    (6, "monitor", "Get the coaching you need", "I review your nightly use data as it comes in. Most modern machines send it over the internet every morning. If I see things are not going in the right direction, I may call you before you do to discuss changes.", True, None),
+    (6, "monitor", "Mask fit + coaching", "I review your nightly use data as it comes in. Most modern machines send it over the internet every morning. If I see things are not going in the right direction, I may call you before you do to discuss changes.", True, None),
     (7, "adjust", "Adjust", "Pressure, humidity, ramp, mask. I make the changes myself, then we see what the next nights say.", True, None),
     (8, "repeat", "Sleep, sleep, repeat", "Until we get it right. Most people need two or three rounds. That is normal, and it is what I'm here for.", True, None),
     (9, "sun", "Congratulations. A better night's sleep.", "You wake up rested. Your bed partner sleeps too. Now we keep it that way.", True, None),
 ]
+
+ONE_DOC = {6: "Usually: the supply company's therapist fits the mask, and you call the sleep doctor's office if it isn't working. With me: I fit the mask with you on video, and I'm the one who sees your data.",
+           7: "Usually: a request goes from the therapist to the doctor, who signs a new order, and the supply company changes the setting. That's days. With me: I see the problem and I make the change myself.",
+           8: "Usually: each round of 'try this, then call us' restarts the chain. With me: it's one conversation with one doctor until it works."}
+import json as _json
+STOP_DATA_JSON = _json.dumps({n: {"title": t, "text": txt, "mine": mine, "partner": partner or "", "one": ONE_DOC.get(n, "")}
+                              for n, _, t, txt, mine, partner in MAP_STOPS}).replace("</", "<\\/")
 
 BENEFITS_PROVEN = [
     ("energy", "Less daytime sleepiness", "The best-proven benefit. People stay awake through the afternoon, the TV, and the drive home."),
@@ -641,7 +662,22 @@ PAGES["better-sleep.html"] = dict(
 <section class="section alt">
   <div class="wrap">
     <h2 class="visually-hidden">The map</h2>
+    <div class="compare">
+      <div class="compare-card usual"><p class="compare-k">The usual way</p><p class="compare-h">4–5 different people</p>
+        <p>Sleep doctor → supply company → their therapist for the mask → back to the doctor for changes. Each hand-off adds days. It can take weeks, sometimes months.</p>
+        <p class="compare-stat">At one major U.S. sleep center, patients waited a median of <strong>113 days</strong> (almost 4 months) from referral to being offered treatment.<sup>1</sup></p></div>
+      <div class="compare-card me"><p class="compare-k">With me</p><p class="compare-h">One doctor, start to finish</p>
+        <p>I'm a physician <strong>and</strong> a respiratory therapist. The same person fits your mask, coaches you, and adjusts your settings, so fixes happen sooner.</p></div>
+    </div>
+    <p class="map-hint">Tap any step to learn more.</p>
     <div class="info-wrap">{road_svg(MAP_STOPS)}{road_svg_phone(MAP_STOPS)}</div>
+    <div id="mdetail" class="mdetail" hidden>
+      <button type="button" class="md-close" aria-label="Close step details">×</button>
+      <p class="md-num"></p><h3 class="md-title"></h3><p class="md-who"></p><p class="md-text"></p><p class="md-one"></p>
+      <a class="btn primary md-book" href="contact.html">Book this step</a>
+    </div>
+    <script type="application/json" id="stop-data">{STOP_DATA_JSON}</script>
+    <p class="muted source-note"><sup>1</sup> Morgan, Ramar, Morgenthaler (Mayo Clinic). <em>Journal of Clinical Sleep Medicine</em>, February 2026.</p>
   </div>
 </section>
 
